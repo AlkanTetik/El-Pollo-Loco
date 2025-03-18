@@ -1,0 +1,224 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    background-image: url('img/wüste.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+}
+
+h1 {
+    padding-top: 100px;
+}
+
+.full-screen {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.playInfo {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.moveInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.moveLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.moveLeftImg {
+    transform: rotate(180deg);
+    background-color: white;
+    padding: 6px;
+    border-radius: 50%;
+}
+
+.moveRight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.moveRightImg {
+    background-color: white;
+    padding: 6px;
+    border-radius: 50%;
+}
+
+.throwInfo {
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.jumpInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.jumpImg {
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* Container für Canvas und Start-Button */
+#gameContainer {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    margin: 0 auto;
+    background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Canvas füllt den Container */
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Button zentral positionieren */
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #f7de00;
+    border-radius: 15px;
+    z-index: 1;
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: rgb(12, 192, 12);
+    color: #f7de00;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    transition: 0.5s ease-in-out;
+}
+
+#startButton:hover {
+    transform: 0.5s ease-in-out;
+    background-color: #f7de00;
+    border: 5px solid rgb(12, 192, 12);
+    color: rgb(12, 192, 12);
+}
+
+#overlayWin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1;
+    background-image: url('img/You won, you lost/You Win A.png');
+    background-repeat: no-repeat;
+    background-size: 250px;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.397);
+    /* 60% Transparenz */
+    height: 480px;
+    width: 720px;
+}
+
+#restartLoseBtn {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #f7de00;
+    border-radius: 15px;
+    z-index: 1;
+    padding: 10px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgb(12, 192, 12);
+    color: #f7de00;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    transition: 0.5s ease-in-out;
+}
+
+#restartWinBtn {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #f7de00;
+    border-radius: 15px;
+    z-index: 1;
+    padding: 10px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgb(12, 192, 12);
+    color: #f7de00;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    transition: 0.5s ease-in-out;
+}
+
+#restartWinBtn:hover, #restartLoseBtn:hover {
+    transform: 0.5s ease-in-out;
+    background-color: #f7de00;
+    border: 5px solid rgb(12, 192, 12);
+    color: rgb(12, 192, 12);
+}
+
+#winMessage {
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
+
+#overlayLose {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1;
+    background-image: url('img/9_intro_outro_screens/game_over/oh no you lost!.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 480px;
+    width: 720px;
+}

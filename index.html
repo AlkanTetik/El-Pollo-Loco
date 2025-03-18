@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="img/2_character_pepe/3_jump/J-36.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Knewave&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>El Pollo Loco</title>
+  <script src="models/world.class.js"></script>
+  <script src="models/keyboard.class.js"></script>
+  <script src="models/drawable-object.class.js"></script>
+  <script src="models/movable-object.class.js"></script>
+  <script src="models/throwableobject.class.js"></script>
+  <script src="models/collective-objects.class.js"></script>
+  <script src="models/status-bar.class.js"></script>
+  <script src="models/sounds.class.js"></script>
+  <script src="models/coinbar.class.js"></script>
+  <script src="models/bottlebar.class.js"></script>
+  <script src="models/character.class.js"></script>
+  <script src="models/chicken.class.js"></script>
+  <script src="models/endboss.class.js"></script>
+  <script src="models/clouds.class.js"></script>
+  <script src="models/coin.class.js"></script>
+  <script src="models/salsabottle.class.js"></script>
+  <script src="models/background.class.js"></script>
+  <script src="models/level.class.js"></script>
+  <script src="levels/level1.js"></script>
+  <script src="js/game.js"></script>
+</head>
+
+<body onload="init()">
+  <h1>El Pollo Loco</h1>
+  <!-- Container, der Canvas und den Start-Button enthält -->
+  <div id="gameContainer">
+    <!-- <img onclick="enterFullscreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt=""> -->
+    <canvas id="canvas" height="480" width="720"></canvas>
+    <button id="startButton" onclick="startGame()">Start Game</button>
+    <div id="overlayWin">
+      <div id="winMessage"></div>
+      <button id="restartWinBtn">Play Again</button>
+    </div>
+    <div id="overlayLose">
+      <div id="lostMessage"></div>
+      <button id="restartLoseBtn">Try Again</button>
+    </div>
+  </div>
+
+  <div class="playInfo">
+    <div class="moveInfo">
+      <div class="moveLeft">
+        <img class="moveLeftImg" style="width: 15px; height: 15px;" src="img/rechter-pfeil.png" alt=""> : MOVE LEFT
+      </div>
+      <div class="moveRight">
+        MOVE RIGHT : <img class="moveRightImg" style="width: 15px; height: 15px;" src="img/rechter-pfeil.png" alt="">
+      </div>
+    </div>
+    <div class="throwInfo">THROW BOTTLE : <strong>D</strong></div>
+    <div class="jumpInfo">JUMP : <img class="jumpImg" style="width: 30px; height: 30px;" src="img/space.png" alt="">
+    </div>
+  </div>
+</body>
+
+</html>
