@@ -1,9 +1,11 @@
 class World {
-    character = new Character();
-    level = level1;
+    // Entferne die Feldinitialisierung des Charakters – er wird nun im Konstruktor erzeugt.
+    character; 
+    level = createLevel1();
     canvas;
     ctx;
     keyboard;
+    gameOver = false; // Neues Flag
     camera_x = 0;
     statusbar = new StatusBar();
     coinbar = new CoinBar();
@@ -15,19 +17,38 @@ class World {
         new ThrowableObject(),
         new ThrowableObject(),
     ];
+    soundManager = new SoundManager();
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
+        // Erzeuge den Charakter und übergebe die aktuelle World-Instanz:
+        this.character = new Character(this);
+        // setWorld() wird hier redundant, sorgt aber dafür, dass this.character.world = this ist.
         this.setWorld();
         this.draw();
         this.run();
     }
 
+    resetLevel() {
+        this.level = createLevel1();
+        // Erzeuge den Charakter neu mit Übergabe der World-Instanz:
+        this.character = new Character(this);
+        this.statusbar = new StatusBar();
+        this.coinbar = new CoinBar();
+        this.bottlebar = new BottleBar();
+        this.throwableObj = [
+            new ThrowableObject(),
+            new ThrowableObject(),
+            new ThrowableObject(),
+            new ThrowableObject(),
+            new ThrowableObject(),
+        ];
+    }
 
     setWorld() {
-        // Verknüpfe den Charakter mit der Spielwelt, damit er z. B. auf die Statusbar zugreifen kann.
+        // Verknüpfe den Charakter mit der Spielwelt
         this.character.world = this;
     }
 
@@ -57,7 +78,13 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
 
-        requestAnimationFrame(() => this.draw());
+        this.animationFrameID = requestAnimationFrame(() => this.draw());
+    }
+
+    stop() {
+        clearInterval(this.collisionInterval);
+        clearInterval(this.otherInterval);
+        cancelAnimationFrame(this.animationFrameID);
     }
 
     collisionInterval;
@@ -87,7 +114,6 @@ class World {
                     this.handleChickenCollision(enemy, verticalDiff, chickensToKill);
                 } else if (enemy instanceof EndBoss) {
                     this.handleEndBossCollision(enemy, verticalDiff);
-                    
                 }
             }
         });
@@ -116,10 +142,6 @@ class World {
             this.statusbar.setPercentage(this.character.energy);
             soundManager.play('hurt');
         }
-        if (this instanceof EndBoss == isDead()) {
-            clearInterval(this.otherInterval);
-            clearInterval(this.collisionInterval);
-        }
     }
 
     processChickenCollisions(chickensToKill) {
@@ -136,51 +158,69 @@ class World {
     }
 
     checkLose() {
-        if (this.character.energy == 0) {
+        if (this.character.energy == 0 && !this.gameOver) {
+            this.gameOver = true; // Flag setzen
             this.showLose();
             soundManager.play('lose');
-            clearInterval(this.collisionInterval);
-            clearInterval(this.otherInterval);
+            this.stop();
+            this.keyboard = new Keyboard();
         }
     }
 
     showLose() {
         let overlay = document.getElementById('overlayLose');
         let restartLoseBtn = document.getElementById('restartLoseBtn');
+        let backToMenuBtn = document.getElementById('backLoseMenu');
+
+        // Overlay anzeigen
         overlay.style.display = "flex";
-        restartLoseBtn.style.display = "flex";
-       
+        restartLoseBtn.style.display = "block";
+        backToMenuBtn.style.display = "block";
+
+        // Restart: Spiel neu laden
         restartLoseBtn.addEventListener('click', () => {
-            window.location.reload();
+            restartGame(); // Aufruf der globalen Funktion
         }, { once: true });
 
-        this.keyboard = new Keyboard();
-
+        // Back to Menu: Overlay ausblenden und Menü anzeigen
+        backToMenuBtn.addEventListener('click', () => {
+            window.location.reload();
+        }, { once: true });
     }
 
     checkWin() {
+        // Falls das Spiel bereits vorbei ist, führe nichts mehr aus
+        if (this.gameOver) return;
+
         this.level.enemies.forEach(enemy => {
             if (enemy instanceof EndBoss && enemy.isDead()) {
+                this.gameOver = true; // Flag setzen
+                this.stop(); // Stoppe alle laufenden Prozesse, inklusive Animationen und Intervalle
                 this.showVictory();
-                clearInterval(this.collisionInterval);
-                clearInterval(this.otherInterval);
+                this.keyboard = new Keyboard();
             }
         });
     }
-    
 
     showVictory() {
         let overlay = document.getElementById('overlayWin');
         let restartWinBtn = document.getElementById('restartWinBtn');
-        overlay.style.display = "flex";
-        restartWinBtn.style.display = "flex";
+        let backToMenuBtn = document.getElementById('backWinMenu');
 
-        // Beim ersten Klick wird die Seite neu geladen (Neustart des Spiels)
+        // Overlay anzeigen
+        overlay.style.display = "flex";
+        restartWinBtn.style.display = "block";
+        backToMenuBtn.style.display = "block";
+
+        // Restart: Spiel neu laden
         restartWinBtn.addEventListener('click', () => {
-            window.location.reload();
+            restartGame(); // Aufruf der globalen Funktion
         }, { once: true });
 
-        this.keyboard = new Keyboard();
+        // Back to Menu: Overlay ausblenden und Menü anzeigen
+        backToMenuBtn.addEventListener('click', () => {
+            window.location.reload();
+        }, { once: true });
     }
 
     checkCoinCollection() {
@@ -229,13 +269,10 @@ class World {
 
     checkThrowAbleObject() {
         if (this.keyboard.D && this.bottlebar.bottleCount > 0) {
-
             let offsetX = this.character.otherDirection ? -20 : this.character.width - 20;
             let offsetY = 40;
-
             let startX = this.character.x + offsetX;
             let startY = this.character.y + offsetY;
-
             this.throwableObj.push(new ThrowableObject(startX, startY));
             this.bottlebar.decreaseBottleCount();
             this.keyboard.D = false;
@@ -253,7 +290,6 @@ class World {
 
     addToMap(mo) {
         this.ctx.save();
-
         // Falls das Objekt in die entgegengesetzte Richtung schaut, wird das Bild gespiegelt
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -267,7 +303,6 @@ class World {
             this.flipImageBack(mo);
             mo.drawFrame(this.ctx);
         }
-
         this.ctx.restore();
     }
 

@@ -29,4 +29,6 @@ soundManager.loadSound('breakglass', 'audio/breakglass (2).wav');
 soundManager.loadSound('walking', 'audio/foot-step-snow-12-189872.mp3');
 soundManager.loadSound('victory', 'audio/victory.wav');
 soundManager.loadSound('lose', 'audio/gameover.wav');
+soundManager.loadSound('jump', 'audio/188543__deleted_user_3330286__breathjump00thm_adventure.mp3');
+soundManager.loadSound('snoring', 'audio/ronquido-102469.mp3');
 
