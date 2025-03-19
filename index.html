@@ -23,6 +23,7 @@
   <script src="models/coinbar.class.js"></script>
   <script src="models/bottlebar.class.js"></script>
   <script src="models/character.class.js"></script>
+  <script src="models/chick.class.js"></script>
   <script src="models/chicken.class.js"></script>
   <script src="models/endboss.class.js"></script>
   <script src="models/clouds.class.js"></script>
@@ -41,6 +42,8 @@
     <!-- <img onclick="enterFullscreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt=""> -->
     <canvas id="canvas" height="480" width="720"></canvas>
     <button id="startButton" onclick="startGame()">Start Game</button>
+    <button id="infoButton" onclick="openInfo()">Game Controls</button>
+    <div id="showInfo"></div>
     <div id="overlayWin">
       <div id="winMessage"></div>
       <button id="backWinMenu">MENU</button>
@@ -52,20 +55,5 @@
       <button id="restartLoseBtn">Try Again</button>
     </div>
   </div>
-
-  <div class="playInfo">
-    <div class="moveInfo">
-      <div class="moveLeft">
-        <img class="moveLeftImg" style="width: 15px; height: 15px;" src="img/rechter-pfeil.png" alt=""> : MOVE LEFT
-      </div>
-      <div class="moveRight">
-        MOVE RIGHT : <img class="moveRightImg" style="width: 15px; height: 15px;" src="img/rechter-pfeil.png" alt="">
-      </div>
-    </div>
-    <div class="throwInfo">THROW BOTTLE : <strong>D</strong></div>
-    <div class="jumpInfo">JUMP : <img class="jumpImg" style="width: 30px; height: 30px;" src="img/space.png" alt="">
-    </div>
-  </div>
 </body>
-
 </html>

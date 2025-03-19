@@ -5,8 +5,14 @@ class EndBoss extends MovableObject {
     health = 4; 
     dead = false;
 
-
     IMAGES_WALKING = [
+        'img/4_enemie_boss_chicken/1_walk/G1.png',
+        'img/4_enemie_boss_chicken/1_walk/G2.png',
+        'img/4_enemie_boss_chicken/1_walk/G3.png',
+        'img/4_enemie_boss_chicken/1_walk/G4.png',
+    ];
+
+    IMAGES_ATTACK = [
         'img/4_enemie_boss_chicken/3_attack/G13.png',
         'img/4_enemie_boss_chicken/3_attack/G14.png',
         'img/4_enemie_boss_chicken/3_attack/G15.png',
@@ -15,7 +21,7 @@ class EndBoss extends MovableObject {
         'img/4_enemie_boss_chicken/3_attack/G18.png',
         'img/4_enemie_boss_chicken/3_attack/G19.png',
         'img/4_enemie_boss_chicken/3_attack/G20.png',
-    ]
+    ];
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -42,11 +48,14 @@ class EndBoss extends MovableObject {
 
     constructor() {
         super();
-        this.loadImage(this.IMAGES_ALERT[0]);
+        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 3000;
+        this.speed = 0.8 + Math.random() * 0.55;
         this.animate();
     }
 
@@ -68,13 +77,13 @@ class EndBoss extends MovableObject {
             soundManager.play('victory');
         }
         return this.dead;
-    }
+    }    
 
     animate() {
         setInterval(() => {
             if (!this.isDead()) {
                 this.moveLeft();
-            }
+            }       
         }, 1000 / 60);
 
         setInterval(() => {
@@ -83,7 +92,7 @@ class EndBoss extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else {
-                this.playAnimation(this.IMAGES_ALERT);
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 150);
     }

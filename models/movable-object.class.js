@@ -24,7 +24,7 @@ class MovableObject extends DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof EndBoss || this instanceof Chick) {
             ctx.beginPath();
             ctx.lineWidth = "5";
             ctx.strokeStyle = "blue";
@@ -99,8 +99,6 @@ class MovableObject extends DrawableObject {
         return false;
     }
     
-    
-
     isBottleColliding(bottle) {
         const offsetX = 30;
         const offsetY = 0;
@@ -125,15 +123,14 @@ class MovableObject extends DrawableObject {
             charInner.y + charInner.height > bottleInner.y;
     }
 
-    hit() {
-        this.energy -= 20;
+    hit(damage = 20) {
+        this.energy -= damage;
         if (this.energy <= 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
-
 
     isHurt() {
         this.timePassed = new Date().getTime() - this.lastHit;

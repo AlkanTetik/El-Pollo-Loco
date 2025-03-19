@@ -112,6 +112,8 @@ class World {
                 let verticalDiff = (this.character.y + this.character.height) - enemy.y;
                 if (enemy instanceof Chicken) {
                     this.handleChickenCollision(enemy, verticalDiff, chickensToKill);
+                } else if (enemy instanceof Chick) {
+                    this.handleChickCollision(enemy, verticalDiff, chickensToKill);
                 } else if (enemy instanceof EndBoss) {
                     this.handleEndBossCollision(enemy, verticalDiff);
                 }
@@ -121,28 +123,37 @@ class World {
             this.processChickenCollisions(chickensToKill);
         }
     }
-
+    
     handleChickenCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.5) {
             chickensToKill.push(enemy);
         } else if (!enemy.isDead && Date.now() - this.character.lastHit > 1500) {
-            this.character.hit();
-            this.character.lastHit = Date.now();
+            this.character.hit(20);
             this.statusbar.setPercentage(this.character.energy);
             soundManager.play('hurt');
         }
     }
-
+    
+    handleChickCollision(enemy, verticalDiff, chickensToKill) {
+        if (this.character.speedY < 0 && verticalDiff < enemy.height * 1) {
+            chickensToKill.push(enemy);
+        } else if (!enemy.isDead && Date.now() - this.character.lastHit > 1500) {
+            this.character.hit(10);
+            this.statusbar.setPercentage(this.character.energy);
+            soundManager.play('hurt');
+        }
+    }
+    
     handleEndBossCollision(enemy, verticalDiff) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.5) {
-            if (!enemy.isDead()) enemy.hit();
+            if (!enemy.isDead()) enemy.hit(); // Angenommen, der EndBoss hat eigene Schadenslogik
         } else if (!enemy.isDead() && Date.now() - this.character.lastHit > 1300) {
-            this.character.hit();
-            this.character.lastHit = Date.now();
+            this.character.hit(50);
             this.statusbar.setPercentage(this.character.energy);
             soundManager.play('hurt');
         }
     }
+    
 
     processChickenCollisions(chickensToKill) {
         this.character.jump();
