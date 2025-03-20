@@ -63,9 +63,9 @@ class World {
 
         // Zeichne die Hintergrundobjekte und Spielfiguren
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.throwableObj);

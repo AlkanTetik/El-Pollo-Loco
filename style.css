@@ -3,16 +3,22 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: "Roboto", sans-serif;
-    background-image: url('img/wüste.jpg');
+    background-image: url('img/desert-5112222_1280.png');
     background-size: cover;
     background-position: center;
     height: 100vh;
     overflow: hidden;
     color: white;
+    margin: 0px;
 }
 
 h1 {
-    padding-top: 100px;
+    margin-top: 100px;
+    color: #ffffff;
+    background-color: #d3af0dc5;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-family: "Knewave", sans-serif;
 }
 
 .full-screen {
@@ -95,7 +101,7 @@ h1 {
 /* Container für Canvas und Start-Button */
 #gameContainer {
     position: relative;
-    width: 720px;
+    /* width: 720px; */
     height: 480px;
     margin: 0 auto;
     background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
@@ -105,10 +111,7 @@ h1 {
 
 /* Canvas füllt den Container */
 #canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    display: flex;
 }
 
 /* Button zentral positionieren */
@@ -158,32 +161,46 @@ h1 {
     color: rgba(12, 192, 12, 0.692);
 }
 
+#showInfo {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    /* Damit der Container über dem Canvas liegt */
+    width: 90%;
+    max-width: 720px;
+    /* maximal gleiche Breite wie der Canvas */
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* optionaler Hintergrund, damit der Text besser lesbar ist */
+}
+
 .info {
-    margin: 100px auto;
-    max-width: 500px;
-    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
 }
 
 .info table {
+    margin: 0 auto;
     width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-    background-color: #fff;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .info th,
 .info td {
-    padding: 12px;
+    padding: 7px;
     border: 1px solid #ecc30c;
-    font-weight: 700;
+    font-weight: 400;
+    font-family: "Knewave", system-ui;
 }
 
 .info th {
     background-color: #ecc30c;
     color: #fff;
     font-size: 16px;
+    font-family: "Knewave", system-ui;
 }
 
 .info img {
@@ -212,11 +229,12 @@ h1 {
     background-image: url('img/You won, you lost/You Win A.png');
     background-repeat: no-repeat;
     background-size: 250px;
+    /* passt die Bildgröße dynamisch an */
     background-position: center;
     background-color: rgba(0, 0, 0, 0.397);
-    /* 60% Transparenz */
-    height: 480px;
-    width: 720px;
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 3 / 2;
 }
 
 #restartLoseBtn {
@@ -266,11 +284,11 @@ h1 {
 }
 
 #backWinMenu,
-#backLoseMenu, 
+#backLoseMenu,
 .closeInfoBtn {
     position: absolute;
-    top: 10%;
-    right: 0px;
+    top: -15%;
+    right: -40px;
     transform: translate(-50%, -50%);
     border: 5px solid #12ce41;
     border-radius: 15px;
@@ -312,6 +330,29 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 480px;
-    width: 720px;
+    width: 100%;
+    max-width: 720px;
+    /* Höhe dynamisch mit festem Seitenverhältnis (720:480 = 3:2) */
+    aspect-ratio: 3 / 2;
+}
+
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100vw;
+    }
+
+    h1 {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+
+    h1 {
+        display: none;
+    }
 }
