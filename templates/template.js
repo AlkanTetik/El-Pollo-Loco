@@ -1,6 +1,5 @@
 function getGameControlsTemplate() {
    return ` 
-   <button class='closeInfoBtn' onclick='closeInfo()'>BACK</button>
     <div class="info">
       <table>
         <tr>

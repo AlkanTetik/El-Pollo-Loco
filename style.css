@@ -98,10 +98,9 @@ h1 {
     background-color: white;
 }
 
-/* Container für Canvas und Start-Button */
+/* Sicherstellen, dass der Game-Container relativ positioniert ist */
 #gameContainer {
     position: relative;
-    /* width: 720px; */
     height: 480px;
     margin: 0 auto;
     background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
@@ -114,17 +113,15 @@ h1 {
     display: flex;
 }
 
-/* Button zentral positionieren */
-#startButton {
+/* Gemeinsame Styles */
+#startButton,
+#infoButton {
     position: absolute;
-    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 5px solid #f7de00;
     border-radius: 15px;
     z-index: 1;
-    padding: 20px 60px;
-    font-size: 24px;
     cursor: pointer;
     background-color: rgba(12, 192, 12, 0.897);
     color: #f7de00;
@@ -134,23 +131,17 @@ h1 {
     transition: 0.5s ease-in-out;
 }
 
+/* Standardgrößen */
+#startButton {
+    top: 40%;
+    padding: 20px 60px;
+    font-size: 24px;
+}
+
 #infoButton {
-    position: absolute;
     top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 5px solid #f7de00;
-    border-radius: 15px;
-    z-index: 1;
     padding: 20px 40px;
     font-size: 24px;
-    cursor: pointer;
-    background-color: rgba(12, 192, 12, 0.897);
-    color: #f7de00;
-    font-family: "Knewave", system-ui;
-    font-weight: 400;
-    font-style: normal;
-    transition: 0.5s ease-in-out;
 }
 
 #startButton:hover,
@@ -283,25 +274,39 @@ h1 {
     color: rgb(12, 192, 12);
 }
 
+/* Gemeinsame Styles für die Buttons */
 #backWinMenu,
-#backLoseMenu,
-.closeInfoBtn {
+#backLoseMenu {
     position: absolute;
-    top: -15%;
-    right: -40px;
-    transform: translate(-50%, -50%);
+    top: 20px;
+    right: 20px;
     border: 5px solid #12ce41;
     border-radius: 15px;
-    z-index: 1;
     padding: 5px 10px;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
-    background-color: rgba(192, 165, 12, 0);
+    background-color: transparent;
     color: #12ce41;
     font-family: "Knewave", system-ui;
-    font-weight: 400;
-    font-style: normal;
     transition: 0.5s ease-in-out;
+    z-index: 10;
+}
+
+.closeInfoBtn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 5px solid #12ce41;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #12ce41;
+    font-family: "Knewave", system-ui;
+    transition: 0.5s ease-in-out;
+    z-index: 10;
 }
 
 #backWinMenu:hover,
@@ -354,5 +359,35 @@ h1 {
 
     h1 {
         display: none;
+    }
+}
+
+/* Optional: leichte Anpassungen für sehr kleine Bildschirme */
+@media only screen and (max-width: 480px) {
+    #backWinMenu,
+    #backLoseMenu,
+    .closeInfoBtn {
+        top: 3%;
+        right: 3%;
+        font-size: 1rem;
+        padding: 4px 8px;
+    }
+}
+
+/* Ab Tablet-Größe die Buttons verkleinern */
+@media (max-width: 1000px) {
+    #startButton {
+        top: 40%;
+        padding: 15px 40px;
+        font-size: 20px;
+    }
+    #infoButton {
+        top: 65%;
+        padding: 15px 30px;
+        font-size: 20px;
+    }
+
+    .h1 {
+        margin-top: 0px
     }
 }

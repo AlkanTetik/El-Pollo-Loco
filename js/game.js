@@ -34,7 +34,8 @@ function restartGame() {
 function openInfo() {
   document.getElementById('infoButton').style.display = 'none';
   document.getElementById('startButton').style.display = 'none';
-  document.getElementById('showInfo').style.display = 'flex'
+  document.getElementById('closeInfoBtn').style.display = 'flex';
+  document.getElementById('showInfo').style.display = 'flex';
   let showInfo = document.getElementById('showInfo');
   showInfo.innerHTML = getGameControlsTemplate();
 }
@@ -43,6 +44,7 @@ function closeInfo() {
   document.getElementById('infoButton').style.display = 'flex';
   document.getElementById('startButton').style.display = 'flex';
   document.getElementById('showInfo').style.display = 'none'
+  document.getElementById('closeInfoBtn').style.display = 'none';
   let showInfo = document.getElementById('showInfo');
   showInfo.innerHTML = '';
 }
