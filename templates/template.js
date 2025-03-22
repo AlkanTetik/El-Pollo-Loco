@@ -20,12 +20,12 @@ function getGameControlsTemplate() {
         <tr>
           <td>Throw Bottle</td>
           <td><strong>D</strong></td>
-          <td>Bottle Button</td>
+          <td>Throw Button</td>
         </tr>
         <tr>
           <td>Jump</td>
           <td><img class="jumpImg" src="img/space.png" alt="Space"></td>
-          <td>Jump Button</td>
+          <td>UP Button</td>
         </tr>
       </table>
     </div>`

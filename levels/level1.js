@@ -11,7 +11,7 @@ function createLevel1() {
         new Chick(),
         new Chick(),
         new Chick(),
-        new EndBoss(),
+        new EndBoss(world),
       ],
       [
         new Clouds(),

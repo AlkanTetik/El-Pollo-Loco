@@ -42,6 +42,16 @@
   <div id="gameContainer">
     <!-- <img onclick="enterFullscreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt=""> -->
     <canvas id="canvas" height="480" width="720"></canvas>
+    <div id="mobileButtons">
+      <div>
+        <button id="leftButton"><img class="leftButton" src="img/back.png" alt=""></button>
+        <button id="rightButton"><img class="rightButton" src="img/back.png" alt=""></button>
+      </div>
+      <div class="rightButtons">
+        <button id="throwButton"><img class="throwButton" src="img/arrow.png" alt=""></button>
+        <button id="jumpButton"><img class="jumpButton" src="img/back.png" alt=""></button>
+      </div>
+    </div>
     <button id="startButton" onclick="startGame()">Start Game</button>
     <button id="infoButton" onclick="openInfo()">Game Controls</button>
     <div id="showInfo"></div>
@@ -58,4 +68,5 @@
     </div>
   </div>
 </body>
+
 </html>

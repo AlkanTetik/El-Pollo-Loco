@@ -18,18 +18,28 @@ class World {
         new ThrowableObject(),
     ];
     soundManager = new SoundManager();
+    
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
-        // Erzeuge den Charakter und übergebe die aktuelle World-Instanz:
         this.character = new Character(this);
-        // setWorld() wird hier redundant, sorgt aber dafür, dass this.character.world = this ist.
         this.setWorld();
+        this.level = createLevel1();
+        
+        // Nachträglich die World-Referenz für alle EndBoss-Objekte setzen:
+        this.level.enemies.forEach(enemy => {
+          if (enemy instanceof EndBoss) {
+            enemy.world = this;
+          }
+        });
+        
         this.draw();
         this.run();
-    }
+      }
+      
+      
 
     resetLevel() {
         this.level = createLevel1();

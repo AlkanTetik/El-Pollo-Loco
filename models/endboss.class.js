@@ -46,8 +46,10 @@ class EndBoss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
-    constructor() {
+    constructor(world, character) {
         super();
+        this.world = world; // Referenz zur Welt setzen
+        this.character = character; // Referenz zur Welt setzen
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
@@ -60,12 +62,17 @@ class EndBoss extends MovableObject {
     }
 
     hit() {
-        let audio = new Audio('audio/chickenHit.mp3');
         if (this.health > 0) {
             this.health--;
-            audio.play();
+            soundManager.play('chickenHit');
+            // Setze den Hurt-Status und starte einen Timer, der ihn nach 1 Sekunde zurücksetzt
+            this.hurtAnimationRunning = true;
+            setTimeout(() => {
+                this.hurtAnimationRunning = false;
+            }, 1000);
         }
     }
+    
 
     isHurt() {
         return this.health > 0 && this.health < 4;
@@ -80,20 +87,27 @@ class EndBoss extends MovableObject {
     }    
 
     animate() {
+        let alertPlayed = false;
+        let moveInterval;
         setInterval(() => {
-            if (!this.isDead()) {
-                this.moveLeft();
-            }       
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
+            if (this.world && this.world.character) {
+                if (this.world.character.x > 2500 && !alertPlayed) {
+                    this.playAnimation(this.IMAGES_ALERT);
+                    setTimeout(() => {
+                        alertPlayed = true;
+                        moveInterval = setInterval(() => {
+                            this.moveLeft();
+                        }, 100);
+                    }, 900);
+                } else if (this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                } else if (this.hurtAnimationRunning) {
+                    // Hurt-Animation wird nur angezeigt, solange hurtAnimationRunning true ist (also 1 Sekunde)
+                    this.playAnimation(this.IMAGES_HURT);
+                } else if (alertPlayed) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
             }
         }, 150);
-    }
-}
+    }    
+}    
