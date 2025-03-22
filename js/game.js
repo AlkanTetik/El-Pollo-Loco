@@ -49,6 +49,25 @@ function startGame() {
   world = new World(canvas, keyboard);
 }
 
+// Toggle-Funktion für Sound
+function toggleSound() {
+  const soundOn = document.getElementById("soundOnImg");
+  const soundOff = document.getElementById("soundOffImg");
+  
+  if (soundOn.style.display !== "none") {
+    // Sound soll ausgeschaltet werden
+    soundOn.style.display = "none";
+    soundOff.style.display = "block";
+    soundManager.soundEnabled = false; // Verhindere weitere Sound-Wiedergaben
+    soundManager.pauseAll();           // Stoppe aktuell laufende Sounds
+  } else {
+    // Sound anschalten
+    soundOn.style.display = "block";
+    soundOff.style.display = "none";
+    soundManager.soundEnabled = true;
+  }
+}
+
 function restartGame() {
   if (world && typeof world.stop === 'function') {
     world.stop();
@@ -65,6 +84,7 @@ function restartGame() {
 function openInfo() {
   document.getElementById("infoButton").style.display = "none";
   document.getElementById("startButton").style.display = "none";
+  document.getElementById("headerButtons").style.display = "none";
   document.getElementById("closeInfoBtn").style.display = "flex";
   document.getElementById("showInfo").style.display = "flex";
   let showInfo = document.getElementById("showInfo");
@@ -74,6 +94,7 @@ function openInfo() {
 function closeInfo() {
   document.getElementById("infoButton").style.display = "flex";
   document.getElementById("startButton").style.display = "flex";
+  document.getElementById("headerButtons").style.display = "flex";
   document.getElementById("showInfo").style.display = "none";
   document.getElementById("closeInfoBtn").style.display = "none";
   document.getElementById("showInfo").innerHTML = "";

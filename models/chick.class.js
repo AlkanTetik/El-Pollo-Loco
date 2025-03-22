@@ -62,9 +62,8 @@ class Chick extends MovableObject {
     }
 
     hit() {
-        let audio = new Audio('audio/chickenhurt.mp3');
         this.isDead = true;
         this.energy = 0;
-        audio.play();
+        soundManager.play('chickenHurt');
     }
 }

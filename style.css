@@ -30,6 +30,38 @@ h1 {
     cursor: pointer;
 }
 
+/* Container, der die Mobile Buttons hält */
+#soundOnImg {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    background-color: rgb(0, 90, 255);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    filter: invert(1);
+  }
+
+  .soundOnImg, .soundOffImg {
+    width: 28px;
+    height: 33px;
+    cursor: pointer;
+  }
+
+  #soundOffImg {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    background-color: rgb(0, 90, 255); /* Blau, das zu Orange invertiert wird */
+    border: none;
+    border-radius: 50%;
+    filter: invert(1);
+}
+
+
 .playInfo {
     margin-top: 20px;
     display: flex;
@@ -354,6 +386,7 @@ h1 {
   .leftButton {
     width: 27px;
     height: 35px;
+    filter: invert(1);
   }
 
   #rightButton {
@@ -371,6 +404,7 @@ h1 {
     transform: rotate(180deg);
     width: 27px;
     height: 35px;
+    filter: invert(1);
   }
 
   #throwButton {
@@ -387,6 +421,7 @@ h1 {
   .throwButton {
     width: 27px;
     height: 35px;
+    filter: invert(1);
   }
 
   #jumpButton{
@@ -404,13 +439,14 @@ h1 {
     transform: rotate(90deg);
     width: 27px;
     height: 35px;
+    filter: invert(1);
   }
 
   /* Stil der Buttons */
   #mobileButtons button {
     display: none;
     pointer-events: all; /* Erlaubt Interaktionen mit den Buttons */
-    background-color: #ecc30c;
+    background-color: #ff9900;
     border-radius: 100%;
   }
   
