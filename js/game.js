@@ -5,66 +5,107 @@ let gameStarted = false;
 
 function init() {
   canvas = document.getElementById("canvas");
-  
-  // Tastatur-Listener
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
-  
-  // Mobile-Buttons initialisieren
+
   initMobileButtons();
 }
 
 function initMobileButtons() {
-    function addMobileListeners(elementId, action) {
-      const element = document.getElementById(elementId);
-      if (!element) return;
-      element.addEventListener('pointerdown', e => {
-        e.preventDefault();
-        handleMobileButtonDown(action);
-      });
-      element.addEventListener('pointerup', e => {
-        e.preventDefault();
-        handleMobileButtonUp(action);
-      });
-    }
-  
-    addMobileListeners("leftButton", "left");
-    addMobileListeners("rightButton", "right");
-    addMobileListeners("jumpButton", "jump");
-    addMobileListeners("throwButton", "throw");
+  function addMobileListeners(elementId, action) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    element.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      handleMobileButtonDown(action);
+    });
+    element.addEventListener('pointerup', e => {
+      e.preventDefault();
+      handleMobileButtonUp(action);
+    });
   }
-  
+
+  addMobileListeners("leftButton", "left");
+  addMobileListeners("rightButton", "right");
+  addMobileListeners("jumpButton", "jump");
+  addMobileListeners("throwButton", "throw");
+}
+
 
 function startGame() {
   if (gameStarted) return;
   gameStarted = true;
   
+  soundManager.play('gamesound');
+  
   document.getElementById("startButton").style.display = "none";
   document.getElementById("infoButton").style.display = "none";
-  document.getElementById("leftButton").style.display = "flex";
-  document.getElementById("rightButton").style.display = "flex";
-  document.getElementById("jumpButton").style.display = "flex";
-  document.getElementById("throwButton").style.display = "flex";
+
+  // Überprüfen, ob die Fensterbreite mindestens 1280px beträgt
+  if (window.innerWidth >= 1280) {
+    document.getElementById("leftButton").style.display = "flex";
+    document.getElementById("rightButton").style.display = "flex";
+    document.getElementById("jumpButton").style.display = "flex";
+    document.getElementById("throwButton").style.display = "flex";
+  }
   
   world = new World(canvas, keyboard);
 }
 
-// Toggle-Funktion für Sound
+
 function toggleSound() {
   const soundOn = document.getElementById("soundOnImg");
   const soundOff = document.getElementById("soundOffImg");
-  
+
   if (soundOn.style.display !== "none") {
-    // Sound soll ausgeschaltet werden
     soundOn.style.display = "none";
     soundOff.style.display = "block";
-    soundManager.soundEnabled = false; // Verhindere weitere Sound-Wiedergaben
-    soundManager.pauseAll();           // Stoppe aktuell laufende Sounds
+    soundManager.soundEnabled = false;
+    soundManager.pauseAll();
   } else {
-    // Sound anschalten
     soundOn.style.display = "block";
     soundOff.style.display = "none";
     soundManager.soundEnabled = true;
+  }
+}
+
+function toggleFullScreen() {
+  let container = document.getElementById('gameContainer');
+  let fullScreenImg = document.getElementById('full-screen');
+  let exitScreenImg = document.getElementById('exitScreen');
+
+  if (
+    !document.fullscreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement
+  ) {
+    enterFullscreen(container);
+    fullScreenImg.style.display = 'none';
+    exitScreenImg.style.display = 'block';
+  } else {
+    exitFullscreen();
+    fullScreenImg.style.display = 'block';
+    exitScreenImg.style.display = 'none';
+  }
+}
+
+function enterFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
   }
 }
 
@@ -120,9 +161,9 @@ function handleKeyUp(e) {
 
 function handleMobileButtonDown(action) {
   switch (action) {
-    case 'left':  keyboard.LEFT = true; break;
+    case 'left': keyboard.LEFT = true; break;
     case 'right': keyboard.RIGHT = true; break;
-    case 'jump':  keyboard.SPACE = true; break;
+    case 'jump': keyboard.SPACE = true; break;
     case 'throw': keyboard.D = true; break;
     default: break;
   }
@@ -130,9 +171,9 @@ function handleMobileButtonDown(action) {
 
 function handleMobileButtonUp(action) {
   switch (action) {
-    case 'left':  keyboard.LEFT = false; break;
+    case 'left': keyboard.LEFT = false; break;
     case 'right': keyboard.RIGHT = false; break;
-    case 'jump':  keyboard.SPACE = false; break;
+    case 'jump': keyboard.SPACE = false; break;
     case 'throw': keyboard.D = false; break;
     default: break;
   }

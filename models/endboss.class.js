@@ -81,6 +81,7 @@ class EndBoss extends MovableObject {
     isDead() {
         if (this.health <= 0 && !this.dead) {
             this.dead = true;
+            soundManager.pauseAll();
             soundManager.play('victory');
         }
         return this.dead;

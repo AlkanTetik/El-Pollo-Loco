@@ -182,6 +182,7 @@ class World {
         if (this.character.energy == 0 && !this.gameOver) {
             this.gameOver = true; // Flag setzen
             this.showLose();
+            soundManager.pauseAll();
             soundManager.play('lose');
             this.stop();
             this.keyboard = new Keyboard();

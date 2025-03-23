@@ -40,12 +40,13 @@
   <h1>El Pollo Loco</h1>
   <!-- Container, der Canvas und den Start-Button enthält -->
   <div id="gameContainer">
-    <!-- <img onclick="enterFullscreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt=""> -->
+    <img onclick="toggleFullScreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt="">
+    <img onclick="toggleFullScreen()" id="exitScreen" style="display: none;" class="full-screen" src="img/full-screen.png" alt="">
+    <canvas id="canvas" height="480" width="720"></canvas>
     <div id="headerButtons">
       <button id="soundOnImg"><img class="soundOnImg" onclick="toggleSound()" src="img/volume (1).png" alt=""></button>
       <button id="soundOffImg"><img class="soundOffImg" onclick="toggleSound()" src="img/volume.png" alt=""></button>
     </div>
-    <canvas id="canvas" height="480" width="720"></canvas>
     <div id="mobileButtons">
       <div>
         <button id="leftButton"><img class="leftButton" src="img/back.png" alt=""></button>

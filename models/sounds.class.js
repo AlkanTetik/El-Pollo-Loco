@@ -24,18 +24,16 @@ class SoundManager {
         });
       }
     }
-  
-    // Pausiert alle aktuell laufenden Sounds
+
     pauseAll() {
       this.activeSounds.forEach(sound => {
         sound.pause();
-        sound.currentTime = 0; // optional: zurücksetzen
+        sound.currentTime = 0; 
       });
       this.activeSounds = [];
     }
   }
   
-  // Beispiel-Initialisierung
   const soundManager = new SoundManager();
   soundManager.loadSound('gamesound', 'audio/gamesound (2).mp3');
   soundManager.loadSound('hurt', 'audio/hurt1.mp3');
@@ -47,7 +45,6 @@ class SoundManager {
   soundManager.loadSound('lose', 'audio/gameover.wav');
   soundManager.loadSound('jump', 'audio/188543__deleted_user_3330286__breathjump00thm_adventure.mp3');
   soundManager.loadSound('snoring', 'audio/ronquido-102469.mp3');
-  // Beispiel-Sound für EndBoss
   soundManager.loadSound('chickenHit', 'audio/chickenHit.mp3');
   soundManager.loadSound('chickenHurt', 'audio/chickenhurt.mp3');
   

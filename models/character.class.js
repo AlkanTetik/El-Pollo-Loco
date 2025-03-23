@@ -2,7 +2,7 @@ class Character extends MovableObject {
     width = 150;
     height = 300;
     y = 40;
-    speed = 5;
+    speed = 10;
     lastActionTime = Date.now();
 
     IMAGES_IDLE = [

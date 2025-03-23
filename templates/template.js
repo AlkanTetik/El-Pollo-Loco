@@ -25,7 +25,7 @@ function getGameControlsTemplate() {
         <tr>
           <td>Jump</td>
           <td><img class="jumpImg" src="img/space.png" alt="Space"></td>
-          <td>UP Button</td>
+          <td>Jump Button</td>
         </tr>
       </table>
     </div>`
