@@ -38,15 +38,18 @@
 
 <body onload="init()">
   <h1>El Pollo Loco</h1>
-  <!-- Container, der Canvas und den Start-Button enthält -->
-  <div id="gameContainer">
+  <section id="gameContainer">
+
     <img onclick="toggleFullScreen()" id="full-screen" class="full-screen" src="img/full-screen.png" alt="">
     <img onclick="toggleFullScreen()" id="exitScreen" style="display: none;" class="full-screen" src="img/full-screen.png" alt="">
+
     <canvas id="canvas" height="480" width="720"></canvas>
+
     <div id="headerButtons">
       <button id="soundOnImg"><img class="soundOnImg" onclick="toggleSound()" src="img/volume (1).png" alt=""></button>
       <button id="soundOffImg"><img class="soundOffImg" onclick="toggleSound()" src="img/volume.png" alt=""></button>
     </div>
+
     <div id="mobileButtons">
       <div>
         <button id="leftButton"><img class="leftButton" src="img/back.png" alt=""></button>
@@ -57,21 +60,27 @@
         <button id="jumpButton"><img class="jumpButton" src="img/back.png" alt=""></button>
       </div>
     </div>
+
     <button id="startButton" onclick="startGame()">Start Game</button>
     <button id="infoButton" onclick="openInfo()">Game Controls</button>
+
     <div id="showInfo"></div>
+
     <button id="closeInfoBtn" class='closeInfoBtn' onclick='closeInfo()'>BACK</button>
+    <button id="backLoseMenu">MENU</button>
+    <button id="backWinMenu">MENU</button>
+
     <div id="overlayWin">
       <div id="winMessage"></div>
-      <button id="backWinMenu">MENU</button>
       <button id="restartWinBtn">Play Again</button>
     </div>
+
     <div id="overlayLose">
       <div id="lostMessage"></div>
-      <button id="backLoseMenu">MENU</button>
       <button id="restartLoseBtn">Try Again</button>
     </div>
-  </div>
+
+  </section>
 </body>
 
 </html>

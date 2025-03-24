@@ -7,7 +7,6 @@ function init() {
   canvas = document.getElementById("canvas");
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
-
   initMobileButtons();
 }
 
@@ -24,13 +23,11 @@ function initMobileButtons() {
       handleMobileButtonUp(action);
     });
   }
-
   addMobileListeners("leftButton", "left");
   addMobileListeners("rightButton", "right");
   addMobileListeners("jumpButton", "jump");
   addMobileListeners("throwButton", "throw");
 }
-
 
 function startGame() {
   if (gameStarted) return;
@@ -42,7 +39,7 @@ function startGame() {
   document.getElementById("infoButton").style.display = "none";
 
   // Überprüfen, ob die Fensterbreite mindestens 1280px beträgt
-  if (window.innerWidth >= 1280) {
+  if (window.innerWidth <= 1280) {
     document.getElementById("leftButton").style.display = "flex";
     document.getElementById("rightButton").style.display = "flex";
     document.getElementById("jumpButton").style.display = "flex";
@@ -51,7 +48,6 @@ function startGame() {
   
   world = new World(canvas, keyboard);
 }
-
 
 function toggleSound() {
   const soundOn = document.getElementById("soundOnImg");
@@ -69,45 +65,59 @@ function toggleSound() {
   }
 }
 
-function toggleFullScreen() {
+function enterFullScreen() {
   let container = document.getElementById('gameContainer');
   let fullScreenImg = document.getElementById('full-screen');
   let exitScreenImg = document.getElementById('exitScreen');
 
-  if (
-    !document.fullscreenElement &&
-    !document.webkitFullscreenElement &&
-    !document.msFullscreenElement
-  ) {
-    enterFullscreen(container);
-    fullScreenImg.style.display = 'none';
-    exitScreenImg.style.display = 'block';
-  } else {
-    exitFullscreen();
-    fullScreenImg.style.display = 'block';
-    exitScreenImg.style.display = 'none';
-  }
-}
-
-function enterFullscreen(element) {
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  }
+  container.requestFullscreen()
+    .then(() => {
+      container.classList.add('fullscreen-active');
+      fullScreenImg.style.display = '';
+      exitScreenImg.style.display = 'block';
+    })
+    .catch(err => console.error("Fehler beim Aktivieren des Vollbildmodus:", err));
 }
 
 function exitFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
+  let container = document.getElementById('gameContainer');
+  let fullScreenImg = document.getElementById('full-screen');
+  let exitScreenImg = document.getElementById('exitScreen');
+
+  document.exitFullscreen()
+    .then(() => {
+      container.classList.remove('fullscreen-active');
+      fullScreenImg.style.display = 'block';
+      exitScreenImg.style.display = 'none';
+    })
+    .catch(err => console.error("Fehler beim Beenden des Vollbildmodus:", err));
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement && 
+      !document.webkitFullscreenElement && 
+      !document.msFullscreenElement) {
+    enterFullScreen();
+  } else {
+    exitFullscreen();
   }
 }
+
+// Event-Listener, der auch auf ESC reagiert (und andere Veränderungen des Vollbildmodus)
+document.addEventListener("fullscreenchange", () => {
+  let container = document.getElementById('gameContainer');
+  let fullScreenImg = document.getElementById('full-screen');
+  let exitScreenImg = document.getElementById('exitScreen');
+
+  if (!document.fullscreenElement && 
+      !document.webkitFullscreenElement && 
+      !document.msFullscreenElement) {
+    container.classList.remove('fullscreen-active');
+    fullScreenImg.style.display = 'block';
+    exitScreenImg.style.display = 'none';
+  }
+});
+
 
 function restartGame() {
   if (world && typeof world.stop === 'function') {
