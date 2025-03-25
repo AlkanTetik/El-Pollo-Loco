@@ -2,7 +2,7 @@ class EndBoss extends MovableObject {
     height = 400;
     width = 300;
     y = 50;
-    health = 4; 
+    health = 5; 
     dead = false;
 
     IMAGES_WALKING = [
@@ -56,7 +56,7 @@ class EndBoss extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 3000;
+        this.x = 7300;
         this.speed = 0.8 + Math.random() * 0.55;
         this.animate();
     }
@@ -75,7 +75,7 @@ class EndBoss extends MovableObject {
     
 
     isHurt() {
-        return this.health > 0 && this.health < 4;
+        return this.health > 0 && this.health < 5;
     }
 
     isDead() {
@@ -92,7 +92,7 @@ class EndBoss extends MovableObject {
         let moveInterval;
         setInterval(() => {
             if (this.world && this.world.character) {
-                if (this.world.character.x > 2500 && !alertPlayed) {
+                if (this.world.character.x > 6700 && !alertPlayed) {
                     this.playAnimation(this.IMAGES_ALERT);
                     setTimeout(() => {
                         alertPlayed = true;

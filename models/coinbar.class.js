@@ -14,7 +14,7 @@ class CoinBar extends DrawableObject {
     constructor(){
         super();
         this.loadImages(this.IMAGES);
-        this.img = this.imageCache[this.IMAGES[0]]; // oder: this.img = new Image(); this.img.src = this.IMAGES[0];
+        this.img = this.imageCache[this.IMAGES[0]];
         this.x = 40;
         this.y = 80;
         this.width = 150;
@@ -22,10 +22,9 @@ class CoinBar extends DrawableObject {
         this.setPercentage(0);
     }
 
-    // Methode zum Erhöhen der Münzanzahl
     increaseCoinCount() {
         this.coinCount++;
-        this.setPercentage(this.coinCount); // oder eine eigene Methode zum Aktualisieren der Anzeige
+        this.setPercentage(this.coinCount); 
     }
 
     setPercentage(percentage) {
@@ -35,20 +34,10 @@ class CoinBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.coinCount >= 5) {
-            return 5;
-        } else if (this.coinCount >= 4) {
-            return 4;
-        } else if (this.coinCount >= 3) {
-            return 3;
-        } else if (this.coinCount >= 2) {
-            return 2;
-        } else if (this.coinCount >= 1) {
-            return 1;
-        } else {
-            return 0;
+        let index = Math.floor(this.coinCount / 2);
+        if (index >= this.IMAGES.length) {
+            index = this.IMAGES.length - 1;
         }
-    }
-    
-    
+        return index;
+    }    
 }
