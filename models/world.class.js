@@ -1,15 +1,18 @@
 class World {
     // Entferne die Feldinitialisierung des Charakters – er wird nun im Konstruktor erzeugt.
-    character; 
+    character;
     level = createLevel1();
     canvas;
     ctx;
     keyboard;
     gameOver = false; // Neues Flag
     camera_x = 0;
+    soundManager = new SoundManager();
     statusbar = new StatusBar();
     coinbar = new CoinBar();
     bottlebar = new BottleBar();
+    sawEndboss = false;
+    endbossbar = new EndbossBar();
     throwableObj = [
         new ThrowableObject(),
         new ThrowableObject(),
@@ -17,8 +20,6 @@ class World {
         new ThrowableObject(),
         new ThrowableObject(),
     ];
-    soundManager = new SoundManager();
-    
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -27,27 +28,28 @@ class World {
         this.character = new Character(this);
         this.setWorld();
         this.level = createLevel1();
-        
-        // Nachträglich die World-Referenz für alle EndBoss-Objekte setzen:
+
+        // Setze die Weltreferenz in den Gegnern (falls nötig)
         this.level.enemies.forEach(enemy => {
-          if (enemy instanceof EndBoss) {
-            enemy.world = this;
-          }
+            if (enemy instanceof EndBoss) {
+                enemy.world = this;
+            }
         });
-        
+
+        // Erzeuge den EndBoss mit korrekten Referenzen:
+        this.endboss = new EndBoss(this, this.character);
+
         this.draw();
         this.run();
-      }
-      
-      
+    }
 
     resetLevel() {
         this.level = createLevel1();
-        // Erzeuge den Charakter neu mit Übergabe der World-Instanz:
         this.character = new Character(this);
         this.statusbar = new StatusBar();
         this.coinbar = new CoinBar();
         this.bottlebar = new BottleBar();
+        this.endbossbar = new EndbossBar();
         this.throwableObj = [
             new ThrowableObject(),
             new ThrowableObject(),
@@ -58,20 +60,16 @@ class World {
     }
 
     setWorld() {
-        // Verknüpfe den Charakter mit der Spielwelt
         this.character.world = this;
     }
 
     draw() {
-        // Canvas leeren
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Speichere den aktuellen Zustand des Canvas
         this.ctx.save();
-        // Wende die Kameratranslation an
+
         this.ctx.translate(this.camera_x, 0);
 
-        // Zeichne die Hintergrundobjekte und Spielfiguren
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
@@ -80,13 +78,19 @@ class World {
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.throwableObj);
 
-        // Wiederherstellen des Canvas-Zustandes, damit die UI (Statusbar) fest bleibt
         this.ctx.restore();
 
-        // Zeichne die Statusbar als UI-Element (fest am Bildschirm)
         this.addToMap(this.bottlebar);
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
+
+        if (this.character.x >= 6700) {
+            this.sawEndboss = true;
+        }
+
+        if (this.sawEndboss) {
+            this.addToMap(this.endbossbar);
+        }
 
         this.animationFrameID = requestAnimationFrame(() => this.draw());
     }
@@ -133,7 +137,7 @@ class World {
             this.processChickenCollisions(chickensToKill);
         }
     }
-    
+
     handleChickenCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.5) {
             chickensToKill.push(enemy);
@@ -143,7 +147,7 @@ class World {
             soundManager.play('hurt');
         }
     }
-    
+
     handleChickCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 1) {
             chickensToKill.push(enemy);
@@ -153,7 +157,7 @@ class World {
             soundManager.play('hurt');
         }
     }
-    
+
     handleEndBossCollision(enemy, verticalDiff) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.5) {
             if (!enemy.isDead()) enemy.hit(); // Angenommen, der EndBoss hat eigene Schadenslogik
@@ -163,7 +167,7 @@ class World {
             soundManager.play('hurt');
         }
     }
-    
+
 
     processChickenCollisions(chickensToKill) {
         this.character.jump();

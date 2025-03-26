@@ -37,15 +37,15 @@ class ThrowableObject extends MovableObject {
         const offsetX = 40; // Passe die Offsets ggf. an
         const offsetY = 40;
         return this.x + offsetX < mo.x + mo.width &&
-               this.x + this.width - offsetX > mo.x &&
-               this.y + offsetY < mo.y + mo.height &&
-               this.y + this.height - offsetY > mo.y;
+            this.x + this.width - offsetX > mo.x &&
+            this.y + offsetY < mo.y + mo.height &&
+            this.y + this.height - offsetY > mo.y;
     }
 
     throw() {
         this.speedY = 30;
         this.applyGravity();
-    
+
         let throwingInterval = setInterval(() => {
             this.x += 10;
             if (this.isAboveGround()) {

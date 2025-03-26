@@ -29,6 +29,12 @@ function initMobileButtons() {
   addMobileListeners("throwButton", "throw");
 }
 
+function toggleLayout() {
+  const container = document.getElementById('gameContainer');
+  // Schaltet die "otherLayout"-Klasse ein/aus, ohne "gameContainer" zu entfernen
+  container.classList.toggle('otherLayout');
+}
+
 function startGame() {
   if (gameStarted) return;
   gameStarted = true;
@@ -47,6 +53,8 @@ function startGame() {
   }
   
   world = new World(canvas, keyboard);
+
+  toggleLayout();
 }
 
 function restartGame() {
