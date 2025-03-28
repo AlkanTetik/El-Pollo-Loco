@@ -13,7 +13,6 @@ class Clouds extends MovableObject {
     super();
     this.loadImage('img/5_background/layers/4_clouds/full.png');
     this.loadImages(this.IMAGES_WALKING);
-    // Zufällige Startposition innerhalb eines größeren Bereichs
     this.x = 100 + Math.random() * 6500;
     this.speed = 0.15 + Math.random() * 0.55;
     this.animate();

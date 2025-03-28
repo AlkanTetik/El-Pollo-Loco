@@ -24,7 +24,6 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.width = 70;
         this.height = 100;
-        // Setze den initialen Zustand: noch nicht gelandet
         this.isOnGround = false;
         this.throw();
     }
@@ -34,7 +33,7 @@ class ThrowableObject extends MovableObject {
     }
 
     isBottleCollidingEnemy(mo) {
-        const offsetX = 40; // Passe die Offsets ggf. an
+        const offsetX = 40;
         const offsetY = 40;
         return this.x + offsetX < mo.x + mo.width &&
             this.x + this.width - offsetX > mo.x &&
@@ -45,7 +44,10 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
+        this.performThrowMovement();
+    }
 
+    performThrowMovement() {
         let throwingInterval = setInterval(() => {
             this.x += 10;
             if (this.isAboveGround()) {
@@ -55,18 +57,22 @@ class ThrowableObject extends MovableObject {
                 soundManager.play('breakglass');
                 this.isOnGround = true;
                 this.landedFrame = 0;
-                let landedInterval = setInterval(() => {
-                    if (this.landedFrame < this.IMAGES_LANDED.length) {
-                        this.img = this.imageCache[this.IMAGES_LANDED[this.landedFrame]];
-                        this.landedFrame++;
-                    } else {
-                        clearInterval(landedInterval);
-                        const index = world.throwableObj.indexOf(this);
-                        if (index > -1) {
-                            world.throwableObj.splice(index, 1);
-                        }
-                    }
-                }, 25);
+                this.playLandedAnimation();
+            }
+        }, 25);
+    }
+
+    playLandedAnimation() {
+        let landedInterval = setInterval(() => {
+            if (this.landedFrame < this.IMAGES_LANDED.length) {
+                this.img = this.imageCache[this.IMAGES_LANDED[this.landedFrame]];
+                this.landedFrame++;
+            } else {
+                clearInterval(landedInterval);
+                const index = world.throwableObj.indexOf(this);
+                if (index > -1) {
+                    world.throwableObj.splice(index, 1);
+                }
             }
         }, 25);
     }

@@ -11,50 +11,55 @@ function init() {
 }
 
 function initMobileButtons() {
-  function addMobileListeners(elementId, action) {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-    element.addEventListener('pointerdown', e => {
-      e.preventDefault();
-      handleMobileButtonDown(action);
-    });
-    element.addEventListener('pointerup', e => {
-      e.preventDefault();
-      handleMobileButtonUp(action);
-    });
-  }
   addMobileListeners("leftButton", "left");
   addMobileListeners("rightButton", "right");
   addMobileListeners("jumpButton", "jump");
   addMobileListeners("throwButton", "throw");
 }
 
+function addMobileListeners(elementId, action) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+  element.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    handleMobileButtonDown(action);
+  });
+  element.addEventListener('pointerup', e => {
+    e.preventDefault();
+    handleMobileButtonUp(action);
+  });
+}
+
 function toggleLayout() {
   const container = document.getElementById('gameContainer');
-  // Schaltet die "otherLayout"-Klasse ein/aus, ohne "gameContainer" zu entfernen
   container.classList.toggle('otherLayout');
 }
 
 function startGame() {
   if (gameStarted) return;
   gameStarted = true;
-  
+
   soundManager.play('gamesound');
-  
+
+  hideMainButtons();
+  showMobileButtonsIfNeeded();
+
+  world = new World(canvas, keyboard);
+  toggleLayout();
+}
+
+function hideMainButtons() {
   document.getElementById("startButton").style.display = "none";
   document.getElementById("infoButton").style.display = "none";
+}
 
-  // Überprüfen, ob die Fensterbreite mindestens 1280px beträgt
+function showMobileButtonsIfNeeded() {
   if (window.innerWidth <= 1280) {
     document.getElementById("leftButton").style.display = "flex";
     document.getElementById("rightButton").style.display = "flex";
     document.getElementById("jumpButton").style.display = "flex";
     document.getElementById("throwButton").style.display = "flex";
   }
-  
-  world = new World(canvas, keyboard);
-
-  toggleLayout();
 }
 
 function restartGame() {
@@ -117,24 +122,23 @@ function exitFullscreen() {
 }
 
 function toggleFullScreen() {
-  if (!document.fullscreenElement && 
-      !document.webkitFullscreenElement && 
-      !document.msFullscreenElement) {
+  if (!document.fullscreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement) {
     enterFullScreen();
   } else {
     exitFullscreen();
   }
 }
 
-// Event-Listener, der auch auf ESC reagiert (und andere Veränderungen des Vollbildmodus)
 document.addEventListener("fullscreenchange", () => {
   let container = document.getElementById('gameContainer');
   let fullScreenImg = document.getElementById('full-screen');
   let exitScreenImg = document.getElementById('exitScreen');
 
-  if (!document.fullscreenElement && 
-      !document.webkitFullscreenElement && 
-      !document.msFullscreenElement) {
+  if (!document.fullscreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement) {
     container.classList.remove('fullscreen-active');
     fullScreenImg.style.display = 'block';
     exitScreenImg.style.display = 'none';

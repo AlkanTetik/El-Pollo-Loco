@@ -16,18 +16,17 @@ class BottleBar extends DrawableObject {
         this.y = 20;
         this.width = 150;
         this.height = 40;
-        this.bottleCount = 0;  // initialisieren
+        this.bottleCount = 0; 
         this.setPercentage(0);
     }
 
     increaseBottleCount() {
-        if (this.bottleCount < 5) {  // Nur erhöhen, wenn noch Platz in der Statusbar ist
+        if (this.bottleCount < 5) { 
             this.bottleCount++;
             this.setPercentage(this.bottleCount);
         }
     }     
     
-    // Neue Methode zum Verringern der Flaschenanzahl
     decreaseBottleCount() {
         if (this.bottleCount > 0) {
             this.bottleCount--;

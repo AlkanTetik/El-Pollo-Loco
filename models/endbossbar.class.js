@@ -13,7 +13,6 @@ class EndbossBar extends MovableObject {
 
     constructor() {
         super();
-        // this.world = world; // falls benötigt
         this.loadImages(this.IMAGES);
         this.x = 250;
         this.y = 25;

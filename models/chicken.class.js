@@ -34,17 +34,11 @@ class Chicken extends MovableObject {
         }, 50);
 
         setInterval(() => {
-            if (this.isDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
+           this.walkingOrDeadInterval();
         }, 100);
 
         setInterval(() => {
-            if (!this.isDead) {
-                this.toggleDirection();
-            }
+           this.directionInterval();
         }, 1000 + Math.random() * 2000);
     }
 
@@ -53,6 +47,20 @@ class Chicken extends MovableObject {
             this.moveRight();
         } else {
             this.moveLeft();
+        }
+    }
+
+    walkingOrDeadInterval() {
+        if (this.isDead) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    directionInterval() {
+        if (!this.isDead) {
+            this.toggleDirection();
         }
     }
 
