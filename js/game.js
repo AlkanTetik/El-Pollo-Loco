@@ -1,8 +1,16 @@
+/**
+ * Hauptdatei für das Spiel. Hier werden globale Variablen und Funktionen zur Initialisierung,
+ * Steuerung, Anzeige und Verwaltung des Spiels definiert.
+ */
+
 let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameStarted = false;
 
+/**
+ * Initialisiert das Spiel, indem das Canvas-Element geholt und Event-Listener für Tastatur- und Mobile-Eingaben gesetzt werden.
+ */
 function init() {
   canvas = document.getElementById("canvas");
   window.addEventListener('keydown', handleKeyDown);
@@ -10,6 +18,9 @@ function init() {
   initMobileButtons();
 }
 
+/**
+ * Initialisiert die Event-Listener für mobile Buttons.
+ */
 function initMobileButtons() {
   addMobileListeners("leftButton", "left");
   addMobileListeners("rightButton", "right");
@@ -17,6 +28,12 @@ function initMobileButtons() {
   addMobileListeners("throwButton", "throw");
 }
 
+/**
+ * Fügt einem mobilen Button Event-Listener hinzu, um Aktionen bei Pointer-Down und Pointer-Up auszulösen.
+ *
+ * @param {string} elementId - Die ID des DOM-Elements.
+ * @param {string} action - Die Aktion, die beim Drücken bzw. Loslassen ausgeführt werden soll.
+ */
 function addMobileListeners(elementId, action) {
   const element = document.getElementById(elementId);
   if (!element) return;
@@ -30,11 +47,18 @@ function addMobileListeners(elementId, action) {
   });
 }
 
+/**
+ * Wechselt das Layout des Spielcontainers.
+ */
 function toggleLayout() {
   const container = document.getElementById('gameContainer');
   container.classList.toggle('otherLayout');
 }
 
+/**
+ * Startet das Spiel, sofern es nicht bereits gestartet wurde. Initialisiert den Sound, blendet Hauptmenü-Buttons aus
+ * und erstellt eine neue Spielwelt.
+ */
 function startGame() {
   if (gameStarted) return;
   gameStarted = true;
@@ -48,11 +72,17 @@ function startGame() {
   toggleLayout();
 }
 
+/**
+ * Blendet die Hauptmenü-Buttons aus.
+ */
 function hideMainButtons() {
   document.getElementById("startButton").style.display = "none";
   document.getElementById("infoButton").style.display = "none";
 }
 
+/**
+ * Zeigt mobile Buttons an, falls die Bildschirmbreite 1280 Pixel oder weniger beträgt.
+ */
 function showMobileButtonsIfNeeded() {
   if (window.innerWidth <= 1280) {
     document.getElementById("leftButton").style.display = "flex";
@@ -62,6 +92,9 @@ function showMobileButtonsIfNeeded() {
   }
 }
 
+/**
+ * Startet das Spiel neu, indem die aktuelle Spielwelt gestoppt, zurückgesetzt und alle UI-Elemente aktualisiert werden.
+ */
 function restartGame() {
   if (world && typeof world.stop === 'function') {
     world.stop();
@@ -77,6 +110,9 @@ function restartGame() {
   startGame();
 }
 
+/**
+ * Schaltet den Sound um, indem das Sound-Icon gewechselt und der SoundManager entsprechend angepasst wird.
+ */
 function toggleSound() {
   const soundOn = document.getElementById("soundOnImg");
   const soundOff = document.getElementById("soundOffImg");
@@ -93,6 +129,9 @@ function toggleSound() {
   }
 }
 
+/**
+ * Aktiviert den Vollbildmodus für den Spielcontainer.
+ */
 function enterFullScreen() {
   let container = document.getElementById('gameContainer');
   let fullScreenImg = document.getElementById('full-screen');
@@ -107,6 +146,9 @@ function enterFullScreen() {
     .catch(err => console.error("Fehler beim Aktivieren des Vollbildmodus:", err));
 }
 
+/**
+ * Beendet den Vollbildmodus für den Spielcontainer.
+ */
 function exitFullscreen() {
   let container = document.getElementById('gameContainer');
   let fullScreenImg = document.getElementById('full-screen');
@@ -121,6 +163,9 @@ function exitFullscreen() {
     .catch(err => console.error("Fehler beim Beenden des Vollbildmodus:", err));
 }
 
+/**
+ * Wechselt zwischen Vollbild- und Fenstermodus.
+ */
 function toggleFullScreen() {
   if (!document.fullscreenElement &&
     !document.webkitFullscreenElement &&
@@ -145,6 +190,9 @@ document.addEventListener("fullscreenchange", () => {
   }
 });
 
+/**
+ * Öffnet das Informationsfenster, indem Hauptmenü-Buttons ausgeblendet und die Steuerungsinformationen angezeigt werden.
+ */
 function openInfo() {
   document.getElementById("infoButton").style.display = "none";
   document.getElementById("startButton").style.display = "none";
@@ -155,6 +203,9 @@ function openInfo() {
   showInfo.innerHTML = getGameControlsTemplate();
 }
 
+/**
+ * Schließt das Informationsfenster, indem die ursprünglichen Menü-Buttons wieder angezeigt werden.
+ */
 function closeInfo() {
   document.getElementById("infoButton").style.display = "flex";
   document.getElementById("startButton").style.display = "flex";
@@ -164,6 +215,11 @@ function closeInfo() {
   document.getElementById("showInfo").innerHTML = "";
 }
 
+/**
+ * Verarbeitet das Drücken einer Taste und aktualisiert den Status des Keyboards.
+ *
+ * @param {KeyboardEvent} e - Das KeyboardEvent.
+ */
 function handleKeyDown(e) {
   if (e.keyCode === 32) keyboard.SPACE = true;
   if (e.keyCode === 37) keyboard.LEFT = true;
@@ -173,6 +229,11 @@ function handleKeyDown(e) {
   if (e.keyCode === 68) keyboard.D = true;
 }
 
+/**
+ * Verarbeitet das Loslassen einer Taste und aktualisiert den Status des Keyboards.
+ *
+ * @param {KeyboardEvent} e - Das KeyboardEvent.
+ */
 function handleKeyUp(e) {
   if (e.keyCode === 32) keyboard.SPACE = false;
   if (e.keyCode === 37) keyboard.LEFT = false;
@@ -182,6 +243,11 @@ function handleKeyUp(e) {
   if (e.keyCode === 68) keyboard.D = false;
 }
 
+/**
+ * Behandelt das Drücken eines mobilen Buttons und löst die entsprechende Aktion im Keyboard aus.
+ *
+ * @param {string} action - Die Aktion, die ausgelöst werden soll.
+ */
 function handleMobileButtonDown(action) {
   switch (action) {
     case 'left': keyboard.LEFT = true; break;
@@ -192,6 +258,11 @@ function handleMobileButtonDown(action) {
   }
 }
 
+/**
+ * Behandelt das Loslassen eines mobilen Buttons und setzt die entsprechende Aktion im Keyboard zurück.
+ *
+ * @param {string} action - Die Aktion, die zurückgesetzt werden soll.
+ */
 function handleMobileButtonUp(action) {
   switch (action) {
     case 'left': keyboard.LEFT = false; break;

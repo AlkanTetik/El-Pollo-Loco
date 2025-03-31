@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert einen normalen Chicken-Gegner im Spiel.
+ * Erbt von {@link MovableObject} und unterstützt grundlegende Bewegungs- und Animationslogik.
+ */
 class Chicken extends MovableObject {
     height = 80;
     width = 90;
@@ -15,6 +19,9 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
 
+    /**
+     * Erzeugt eine neue Instanz von Chicken, lädt die benötigten Bilder, setzt die Startposition und initialisiert die Animation.
+     */
     constructor() {
         super();
         this.energy = 20;
@@ -26,6 +33,10 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Startet die Animationsintervalle für den Chicken.
+     * Führt Bewegungen, Animationswechsel und Richtungswechsel in regelmäßigen Abständen aus.
+     */
     animate() {
         setInterval(() => {
             if (!this.isDead) {
@@ -34,14 +45,17 @@ class Chicken extends MovableObject {
         }, 50);
 
         setInterval(() => {
-           this.walkingOrDeadInterval();
+            this.walkingOrDeadInterval();
         }, 100);
 
         setInterval(() => {
-           this.directionInterval();
+            this.directionInterval();
         }, 1000 + Math.random() * 2000);
     }
 
+    /**
+     * Bewegt den Chicken in die aktuelle Bewegungsrichtung.
+     */
     move() {
         if (this.movingRight) {
             this.moveRight();
@@ -50,6 +64,9 @@ class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Wechselt zwischen den Animationen für das Gehen und den Tod.
+     */
     walkingOrDeadInterval() {
         if (this.isDead) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -58,17 +75,26 @@ class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Prüft in regelmäßigen Abständen, ob die Bewegungsrichtung gewechselt werden soll.
+     */
     directionInterval() {
         if (!this.isDead) {
             this.toggleDirection();
         }
     }
 
+    /**
+     * Wechselt die Bewegungsrichtung des Chicken.
+     */
     toggleDirection() {
         this.movingRight = !this.movingRight;
         this.otherDirection = this.movingRight;
     }
 
+    /**
+     * Löst die "Hit"-Reaktion aus, markiert den Chicken als tot und spielt den entsprechenden Sound ab.
+     */
     hit() {
         this.isDead = true;
         this.energy = 0;

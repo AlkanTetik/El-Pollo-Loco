@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert ein bewegliches Objekt im Spiel, das grundlegende Physik, Kollisionsabfragen und Animationen unterstützt.
+ * Erbt von {@link DrawableObject}.
+ */
 class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
@@ -6,6 +10,10 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
 
+    /**
+     * Wendet die Schwerkraft auf das Objekt an. Solange das Objekt oberhalb des Bodens ist oder eine positive
+     * vertikale Geschwindigkeit besitzt, wird die y-Position angepasst.
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -15,6 +23,12 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * Überprüft, ob das Objekt sich oberhalb des Bodens befindet.
+     * Speziell für ThrowableObjects wird immer true zurückgegeben.
+     *
+     * @returns {boolean} True, wenn das Objekt oberhalb des Bodens ist, sonst false.
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) { 
             return true;
@@ -23,6 +37,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Überprüft, ob dieses Objekt mit einem anderen kollidiert.
+     *
+     * @param {MovableObject} mo - Das Objekt, mit dem die Kollision geprüft wird.
+     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     */
     isColliding(mo) {
         const offsetX = 10;
         const offsetY = 10;
@@ -43,6 +63,13 @@ class MovableObject extends DrawableObject {
             y1 + h1 > y2;
     }
 
+    /**
+     * Überprüft, ob das Objekt mit einer Münze kollidiert.
+     * Es wird zusätzlich überprüft, ob sich die Münze unterhalb der Mitte des Objekts befindet.
+     *
+     * @param {Object} coin - Das Münzen-Objekt, das geprüft wird.
+     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     */
     isCoinColliding(coin) {
         const offsetX = 20;
         const offsetY = 85;
@@ -78,6 +105,12 @@ class MovableObject extends DrawableObject {
         return false;
     }
     
+    /**
+     * Überprüft, ob das Objekt mit einer Flasche kollidiert.
+     *
+     * @param {Object} bottle - Das Flaschen-Objekt, das geprüft wird.
+     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     */
     isBottleColliding(bottle) {
         const offsetX = 30;
         const offsetY = 0;
@@ -102,6 +135,12 @@ class MovableObject extends DrawableObject {
             charInner.y + charInner.height > bottleInner.y;
     }
 
+    /**
+     * Reduziert die Energie des Objekts um den angegebenen Schaden. Falls die Energie unter oder gleich 0 sinkt,
+     * wird sie auf 0 gesetzt.
+     *
+     * @param {number} [damage=20] - Der Schaden, der dem Objekt zugefügt wird.
+     */
     hit(damage = 20) {
         this.energy -= damage;
         if (this.energy <= 0) {
@@ -111,18 +150,33 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Prüft, ob das Objekt kürzlich Schaden genommen hat.
+     *
+     * @returns {boolean} True, wenn das Objekt in den letzten 1 Sekunde Schaden genommen hat, sonst false.
+     */
     isHurt() {
         this.timePassed = new Date().getTime() - this.lastHit;
         this.timePassed = this.timePassed / 1000;
         return this.timePassed < 1;
     }
 
+    /**
+     * Überprüft, ob das Objekt tot ist (Energie gleich 0). Stoppt zudem laufende Intervalle.
+     *
+     * @returns {boolean} True, wenn das Objekt tot ist, sonst false.
+     */
     isDead() {
         clearInterval(this.otherInterval);
         clearInterval(this.collisionInterval);
         return this.energy == 0;
     }
 
+    /**
+     * Spielt eine Animation ab, indem es das Bild aus dem übergebenen Array zyklisch wechselt.
+     *
+     * @param {string[]} images - Array von Bildpfaden für die Animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -132,14 +186,23 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * Bewegt das Objekt nach rechts.
+     */
     moveRight() {
         this.x += this.speed;
     }
 
+    /**
+     * Bewegt das Objekt nach links.
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
+    /**
+     * Lässt das Objekt springen, indem die vertikale Geschwindigkeit gesetzt wird.
+     */
     jump() {
         this.speedY = 25;
     }

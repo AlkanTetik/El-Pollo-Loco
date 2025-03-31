@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert einen kleinen Gegner (Chicken), der sich im Spiel bewegt.
+ * Erbt von {@link MovableObject}.
+ */
 class Chick extends MovableObject {
     height = 60;
     width = 70;
@@ -15,6 +19,9 @@ class Chick extends MovableObject {
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
     ];
 
+    /**
+     * Erzeugt eine neue Instanz von Chick und initialisiert deren Eigenschaften.
+     */
     constructor() {
         super();
         this.energy = 20;
@@ -26,6 +33,9 @@ class Chick extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Startet die verschiedenen Animationsintervalle für den Chick.
+     */
     animate() {
         setInterval(() => {
             if (!this.isDead) {
@@ -38,10 +48,13 @@ class Chick extends MovableObject {
         }, 100);
 
         setInterval(() => {
-            this.directionInterval()
+            this.directionInterval();
         }, 1000 + Math.random() * 2000);
     }
 
+    /**
+     * Bewegt den Chick in die aktuelle Bewegungsrichtung.
+     */
     move() {
         if (this.movingRight) {
             this.moveRight();
@@ -50,6 +63,9 @@ class Chick extends MovableObject {
         }
     }
 
+    /**
+     * Wechselt zwischen den Animationen für das Gehen und den Tod.
+     */
     walkingOrDeadInterval() {
         if (this.isDead) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -58,17 +74,26 @@ class Chick extends MovableObject {
         }
     }
 
+    /**
+     * Bestimmt in regelmäßigen Abständen, ob die Bewegungsrichtung gewechselt werden soll.
+     */
     directionInterval() {
         if (!this.isDead) {
             this.toggleDirection();
         }
     }
 
+    /**
+     * Wechselt die Bewegungsrichtung des Chick.
+     */
     toggleDirection() {
         this.movingRight = !this.movingRight;
         this.otherDirection = this.movingRight;
     }
 
+    /**
+     * Setzt den Chick in den "toten" Zustand, reduziert dessen Energie und spielt den entsprechenden Sound.
+     */
     hit() {
         this.isDead = true;
         this.energy = 0;

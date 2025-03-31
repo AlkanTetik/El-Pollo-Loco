@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert ein werfbares Objekt im Spiel, das sich durch die Luft bewegt und beim Aufprall eine Animation abspielt.
+ * Erbt von {@link MovableObject}.
+ */
 class ThrowableObject extends MovableObject {
     IMAGES_THROWING = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -15,6 +19,13 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
+    /**
+     * Erzeugt eine neue Instanz eines werfbaren Objekts.
+     * Lädt die nötigen Bilder, setzt die Position, Größe und initialisiert die Wurfbewegung.
+     *
+     * @param {number} x - Die x-Position, an der das Objekt erstellt wird.
+     * @param {number} y - Die y-Position, an der das Objekt erstellt wird.
+     */
     constructor(x, y) {
         super();
         this.loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -28,10 +39,21 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
+    /**
+     * Überprüft, ob das Objekt sich oberhalb des Bodens befindet.
+     *
+     * @returns {boolean} True, wenn das Objekt oberhalb des Bodens ist, sonst false.
+     */
     isAboveGround() {
         return this.y < 350;
     }
 
+    /**
+     * Überprüft, ob dieses werfbare Objekt mit einem feindlichen Objekt kollidiert.
+     *
+     * @param {MovableObject} mo - Das feindliche Objekt, mit dem kollidiert werden soll.
+     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     */
     isBottleCollidingEnemy(mo) {
         const offsetX = 40;
         const offsetY = 40;
@@ -41,12 +63,19 @@ class ThrowableObject extends MovableObject {
             this.y + this.height - offsetY > mo.y;
     }
 
+    /**
+     * Initialisiert den Wurf, setzt die vertikale Geschwindigkeit und wendet die Schwerkraft an.
+     */
     throw() {
         this.speedY = 30;
         this.applyGravity();
         this.performThrowMovement();
     }
 
+    /**
+     * Führt die Wurfbewegung des Objekts aus, indem es sich horizontal bewegt und die Wurf-Animation abspielt.
+     * Sobald das Objekt nicht mehr oberhalb des Bodens ist, wird die Landungsanimation gestartet.
+     */
     performThrowMovement() {
         let throwingInterval = setInterval(() => {
             this.x += 10;
@@ -62,6 +91,9 @@ class ThrowableObject extends MovableObject {
         }, 25);
     }
 
+    /**
+     * Spielt die Landungsanimation ab. Nach Beendigung der Animation wird das Objekt aus dem Spiel entfernt.
+     */
     playLandedAnimation() {
         let landedInterval = setInterval(() => {
             if (this.landedFrame < this.IMAGES_LANDED.length) {

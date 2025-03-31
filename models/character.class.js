@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert einen spielbaren Charakter.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
     width = 150;
     height = 300;
@@ -70,6 +74,10 @@ class Character extends MovableObject {
 
     world;
 
+    /**
+     * Erstellt eine neue Instanz des Characters.
+     * @param {Object} world - Die Spielwelt, in der der Charakter existiert.
+     */
     constructor(world) {
         super();
         this.world = world;
@@ -84,10 +92,13 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Startet die Hauptanimationsschleife für den Charakter.
+     */
     animate() {
         setInterval(() => {
             if (this.world.gameOver) return;
-            this.keyRight()
+            this.keyRight();
             this.keyLeft();
             this.keyJump();
             this.keyThrow();
@@ -97,6 +108,9 @@ class Character extends MovableObject {
         this.animationInterval();
     }
 
+    /**
+     * Führt periodisch Animationen basierend auf dem Zustand des Charakters aus.
+     */
     animationInterval() {
         setInterval(() => {
             if (this.world.gameOver) return;
@@ -114,6 +128,9 @@ class Character extends MovableObject {
         }, 150);
     }
 
+    /**
+     * Bewegt den Charakter nach rechts, falls die entsprechende Taste gedrückt wird.
+     */
     keyRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -122,6 +139,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Bewegt den Charakter nach links, falls die entsprechende Taste gedrückt wird.
+     */
     keyLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
@@ -130,6 +150,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Löst den Sprung des Charakters aus, wenn die Leertaste gedrückt wird.
+     */
     keyJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
@@ -137,12 +160,19 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Registriert den Wurfvorgang, wenn die Taste 'D' gedrückt wird.
+     */
     keyThrow() {
         if (this.world.keyboard.D) {
             this.lastActionTime = Date.now();
         }
     }
 
+    /**
+     * Animiert den Leerlauf des Charakters.
+     * Wechselt zur Long-Idle-Animation, wenn der Charakter längere Zeit inaktiv ist.
+     */
     animateIdle() {
         const idleDuration = Date.now() - this.lastActionTime;
         if (idleDuration > 4000) {
@@ -156,6 +186,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Animiert den Charakter beim Gehen.
+     */
     animateWalking() {
         this.playAnimation(this.IMAGES_WALKING);
         if (!this.lastWalkingSound || Date.now() - this.lastWalkingSound > 400) {
@@ -164,6 +197,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Animiert den Sprung des Charakters.
+     */
     animateJump() {
         this.playAnimation(this.IMAGES_JUMPING);
         if (!this.lastWalkingSound || Date.now() - this.lastWalkingSound > 400) {

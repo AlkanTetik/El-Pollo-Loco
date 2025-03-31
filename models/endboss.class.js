@@ -1,3 +1,6 @@
+/**
+ * Repräsentiert den Endboss im Spiel. Erbt von {@link MovableObject}.
+ */
 class EndBoss extends MovableObject {
     height = 400;
     width = 300;
@@ -46,6 +49,11 @@ class EndBoss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    /**
+     * Erstellt eine neue Instanz von EndBoss.
+     * @param {World} world - Das Spielwelt-Objekt.
+     * @param {Character} character - Die Instanz des Spielcharakters.
+     */
     constructor(world, character) {
         super();
         this.world = world;
@@ -59,14 +67,14 @@ class EndBoss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
 
         this.x = 7300;
-
         this.speed = 0.8 + Math.random() * 0.55;
-
         this.hurtAnimationRunning = false;
-
         this.animate();
     }
 
+    /**
+     * Reduziert die Gesundheit des Endbosses und löst entsprechende Animationen sowie Sounds aus.
+     */
     hit() {
         if (this.health > 0) {
             this.health--;
@@ -80,10 +88,18 @@ class EndBoss extends MovableObject {
         }
     }
 
+    /**
+     * Prüft, ob der Endboss aktuell im "hurt" Zustand ist.
+     * @returns {boolean} True, wenn die "hurt" Animation läuft, sonst false.
+     */
     isHurt() {
         return this.hurtAnimationRunning;
     }
 
+    /**
+     * Überprüft, ob der Endboss tot ist und spielt gegebenenfalls die Siegesmusik ab.
+     * @returns {boolean} True, wenn der Endboss tot ist, sonst false.
+     */
     isDead() {
         if (this.health <= 0 && !this.dead) {
             this.dead = true;
@@ -96,6 +112,9 @@ class EndBoss extends MovableObject {
     alertPlayed = false;
     moveInterval;
 
+    /**
+     * Startet die Animation des Endbosses basierend auf dem Zustand des Charakters und des Spiels.
+     */
     animate() {
         setInterval(() => {
             if (this.world && this.world.character) {
@@ -113,14 +132,15 @@ class EndBoss extends MovableObject {
         }, 150);
     }
 
+    /**
+     * Wechselt zwischen verschiedenen Animationen basierend auf dem Zustand des Endbosses.
+     */
     otherAnimations() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
-        }
-        else if (this.hurtAnimationRunning) {
+        } else if (this.hurtAnimationRunning) {
             this.playAnimation(this.IMAGES_HURT);
-        }
-        else if (this.alertPlayed) {
+        } else if (this.alertPlayed) {
             this.playAnimation(this.IMAGES_WALKING);
         }
     }

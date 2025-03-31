@@ -1,3 +1,7 @@
+/**
+ * Repräsentiert die Flaschenanzeige (BottleBar) im Spiel, die den aktuellen Füllstand der Flaschen visualisiert.
+ * Erbt von {@link DrawableObject}.
+ */
 class BottleBar extends DrawableObject {
     IMAGES = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -8,6 +12,9 @@ class BottleBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
     ];
 
+    /**
+     * Erzeugt eine neue Instanz von BottleBar, lädt die Bildressourcen und setzt Position, Größe sowie den Anfangsstatus.
+     */
     constructor(){
         super();
         this.loadImages(this.IMAGES);
@@ -20,13 +27,19 @@ class BottleBar extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Erhöht den Flaschenzähler, sofern dieser unter 5 liegt, und aktualisiert die Anzeige.
+     */
     increaseBottleCount() {
         if (this.bottleCount < 5) { 
             this.bottleCount++;
             this.setPercentage(this.bottleCount);
         }
     }     
-    
+   
+    /**
+     * Verringert den Flaschenzähler, sofern dieser über 0 liegt, und aktualisiert die Anzeige.
+     */
     decreaseBottleCount() {
         if (this.bottleCount > 0) {
             this.bottleCount--;
@@ -34,12 +47,22 @@ class BottleBar extends DrawableObject {
         }
     }
 
+    /**
+     * Aktualisiert die Anzeige der BottleBar basierend auf dem aktuellen Flaschenzähler.
+     *
+     * @param {number} percentage - Der aktuelle Füllstand in Prozent (bzw. Flaschenanzahl).
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Bestimmt den Index im IMAGES-Array, der der aktuellen Anzahl der Flaschen entspricht.
+     *
+     * @returns {number} Der Index, der anzeigt, welches Bild der BottleBar verwendet werden soll.
+     */
     resolveImageIndex() {
         if (this.bottleCount >= 5) {
             return 5;
