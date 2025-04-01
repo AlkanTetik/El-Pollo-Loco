@@ -81,7 +81,7 @@ class ThrowableObject extends MovableObject {
             this.x += 10;
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_THROWING);
-            } else {
+            } else if(this.isOnGround == false){
                 clearInterval(throwingInterval);
                 soundManager.play('breakglass');
                 this.isOnGround = true;

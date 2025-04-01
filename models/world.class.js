@@ -15,13 +15,7 @@ class World {
     bottlebar = new BottleBar();
     sawEndboss = false;
     endbossbar = new EndbossBar();
-    throwableObj = [
-        new ThrowableObject(),
-        new ThrowableObject(),
-        new ThrowableObject(),
-        new ThrowableObject(),
-        new ThrowableObject(),
-    ];
+    throwableObj = [];
 
     /**
      * Erstellt eine neue Instanz der Welt.
@@ -58,13 +52,7 @@ class World {
         this.coinbar = new CoinBar();
         this.bottlebar = new BottleBar();
         this.endbossbar = new EndbossBar();
-        this.throwableObj = [
-            new ThrowableObject(),
-            new ThrowableObject(),
-            new ThrowableObject(),
-            new ThrowableObject(),
-            new ThrowableObject(),
-        ];
+        this.throwableObj = [];
     }
 
     /**
@@ -99,10 +87,10 @@ class World {
     drawLevelObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.salsabottle);
+        this.addObjectsToMap(this.level.coins);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.throwableObj);
         this.ctx.restore();
     }
@@ -224,8 +212,11 @@ class World {
         if (this.character.energy == 0 && !this.gameOver) {
             this.gameOver = true; 
             this.showLose();
-            soundManager.pauseAll();
-            soundManager.play('lose');
+            if (soundManager.pauseAll()) {
+                soundManager.stop('lose');
+            } else {
+                soundManager.play('lose');
+            }
             this.stop();
             this.keyboard = new Keyboard();
         }

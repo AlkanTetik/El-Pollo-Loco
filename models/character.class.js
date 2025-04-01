@@ -108,19 +108,24 @@ class Character extends MovableObject {
         this.animationInterval();
     }
 
+   movementDisabled = false;
     /**
      * Führt periodisch Animationen basierend auf dem Zustand des Charakters aus.
      */
     animationInterval() {
         setInterval(() => {
             if (this.world.gameOver) return;
+            
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
+                // Animation für Schaden abspielen
                 this.playAnimation(this.IMAGES_HURT);
+                // Bewegung für 1 Sekunde deaktivieren
+                this.blockMovement(800);
             } else if (this.isAboveGround()) {
                 this.animateJump();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } else if (!this.movementDisabled && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
                 this.animateWalking();
             } else {
                 this.animateIdle();
@@ -129,9 +134,20 @@ class Character extends MovableObject {
     }
 
     /**
+ * Deaktiviert die Bewegung für die angegebene Dauer in Millisekunden.
+ */
+    blockMovement(duration) {
+        this.movementDisabled = true;
+        setTimeout(() => {
+            this.movementDisabled = false;
+        }, duration);
+    }
+
+    /**
      * Bewegt den Charakter nach rechts, falls die entsprechende Taste gedrückt wird.
      */
     keyRight() {
+        if (this.movementDisabled) return;
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
@@ -143,6 +159,7 @@ class Character extends MovableObject {
      * Bewegt den Charakter nach links, falls die entsprechende Taste gedrückt wird.
      */
     keyLeft() {
+        if (this.movementDisabled) return;
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
@@ -154,6 +171,7 @@ class Character extends MovableObject {
      * Löst den Sprung des Charakters aus, wenn die Leertaste gedrückt wird.
      */
     keyJump() {
+        if (this.movementDisabled) return;
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
             this.lastActionTime = Date.now();
@@ -164,6 +182,7 @@ class Character extends MovableObject {
      * Registriert den Wurfvorgang, wenn die Taste 'D' gedrückt wird.
      */
     keyThrow() {
+        if (this.movementDisabled) return;
         if (this.world.keyboard.D) {
             this.lastActionTime = Date.now();
         }

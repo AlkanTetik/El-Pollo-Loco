@@ -73,6 +73,24 @@ function startGame() {
 }
 
 /**
+ * Startet das Spiel neu, indem die aktuelle Spielwelt gestoppt, zurückgesetzt und alle UI-Elemente aktualisiert werden.
+ */
+function restartGame() {
+  if (world && typeof world.stop === 'function') {
+    world.stop();
+    world.resetLevel();
+  }
+  world = null;
+  gameStarted = false;
+  document.getElementById("overlayLose").style.display = "none";
+  document.getElementById("overlayWin").style.display = "none";
+  document.getElementById("backLoseMenu").style.display = "none";
+  document.getElementById("backWinMenu").style.display = "none";
+  keyboard = new Keyboard();
+  startGame();
+}
+
+/**
  * Blendet die Hauptmenü-Buttons aus.
  */
 function hideMainButtons() {
@@ -90,24 +108,6 @@ function showMobileButtonsIfNeeded() {
     document.getElementById("jumpButton").style.display = "flex";
     document.getElementById("throwButton").style.display = "flex";
   }
-}
-
-/**
- * Startet das Spiel neu, indem die aktuelle Spielwelt gestoppt, zurückgesetzt und alle UI-Elemente aktualisiert werden.
- */
-function restartGame() {
-  if (world && typeof world.stop === 'function') {
-    world.stop();
-    world.resetLevel();
-  }
-  world = null;
-  gameStarted = false;
-  document.getElementById("overlayLose").style.display = "none";
-  document.getElementById("overlayWin").style.display = "none";
-  document.getElementById("backLoseMenu").style.display = "none";
-  document.getElementById("backWinMenu").style.display = "none";
-  keyboard = new Keyboard();
-  startGame();
 }
 
 /**
@@ -272,3 +272,17 @@ function handleMobileButtonUp(action) {
     default: break;
   }
 }
+
+function checkOrientation() {
+  // Prüft, ob das Gerät im Querformat ist:
+  if(window.matchMedia("(orientation: portrait)").matches) {
+    document.getElementById('rotate-message').style.display = 'block';
+  } else {
+    document.getElementById('rotate-message').style.display = 'none';
+  }
+}
+
+// Überprüfe die Ausrichtung beim Laden, bei Größenänderungen und bei einer Orientierung-Änderung
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+checkOrientation();

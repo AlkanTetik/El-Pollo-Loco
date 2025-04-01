@@ -34,7 +34,6 @@
   <script src="models/level.class.js"></script>
   <script src="templates/template.js"></script>
   <script src="levels/level1.js"></script>
-  <script src="js/game.js"></script>
 </head>
 
 <body onload="init()">
@@ -49,6 +48,10 @@
     <div id="headerButtons">
       <button id="soundOnImg"><img class="soundOnImg" onclick="toggleSound()" src="img/volume (1).png" alt=""></button>
       <button id="soundOffImg"><img class="soundOffImg" onclick="toggleSound()" src="img/volume.png" alt=""></button>
+    </div>
+
+    <div id="impressum">
+      <a href="impressum.html" id="impressumButton">Impressum</a>
     </div>
 
     <div id="mobileButtons">
@@ -81,7 +84,12 @@
       <button id="restartLoseBtn">Try Again</button>
     </div>
 
+    <div id="rotate-message">
+      <img class="turnDevice" src="img/turnDevice.png" alt="">
+    </div>
   </section>
+
+  <script src="js/game.js"></script>
 </body>
 
 </html>
