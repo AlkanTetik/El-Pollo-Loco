@@ -225,6 +225,7 @@ p {
     padding: 10px;
     width: 100%;
     text-align: center;
+    font-family: "Knewave", system-ui;
 }
 
 #imprintInfo {
@@ -248,13 +249,10 @@ p {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    /* Damit der Container über dem Canvas liegt */
     width: 90%;
     max-width: 720px;
-    /* maximal gleiche Breite wie der Canvas */
     text-align: center;
     background-color: rgba(0, 0, 0, 0.7);
-    /* optionaler Hintergrund, damit der Text besser lesbar ist */
 }
 
 .info {
