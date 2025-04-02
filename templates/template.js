@@ -30,3 +30,21 @@ function getGameControlsTemplate() {
       </table>
     </div>`
 }
+
+function getImprint() {
+  return `
+  <div class="imprint">
+   <h4>Impressum</h4>
+    <p><b>Informationen und Offenlegung gemäß &sect;5 (1) ECG, &sect; 25 MedienG, &sect; 63 GewO und &sect; 14 UGB</b>
+    </p>
+    <p><b>Webseitenbetreiber:</b> Alkan Tetik</p>
+    <p><b>Anschrift:</b> Am Schöpfwerk 29, 1120 Wien</p>
+    <p><b>UID-Nr:</b> <br> <b>Gewerbeaufsichtbehörde:</b> <br> <b>Mitgliedschaften:</b></p>
+    <p><b>Kontaktdaten:</b> <br> Telefon: <br> Email: alkan.tetik.at@gmail.com <br> Fax: </p>
+
+    <p><b>Anwendbare Rechtsvorschrift:</b> www.ris.bka.gv.at <br> <b>Berufsbezeichnung:</b> </p>
+    <p>Quelle: <b><a target="_blank" style="color: #12ce41" href="https://www.fairesrecht.at/kostenlos-impressum-erstellen-generator.php">Impressum Generator
+                Österreich</a></b></p>
+   </div>
+`
+}

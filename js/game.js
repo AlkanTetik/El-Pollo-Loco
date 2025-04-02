@@ -96,6 +96,7 @@ function restartGame() {
 function hideMainButtons() {
   document.getElementById("startButton").style.display = "none";
   document.getElementById("infoButton").style.display = "none";
+  document.getElementById("imprint").style.display = "none";
 }
 
 /**
@@ -196,6 +197,7 @@ document.addEventListener("fullscreenchange", () => {
 function openInfo() {
   document.getElementById("infoButton").style.display = "none";
   document.getElementById("startButton").style.display = "none";
+  document.getElementById("imprint").style.display = "none";
   document.getElementById("headerButtons").style.display = "none";
   document.getElementById("closeInfoBtn").style.display = "flex";
   document.getElementById("showInfo").style.display = "flex";
@@ -209,10 +211,39 @@ function openInfo() {
 function closeInfo() {
   document.getElementById("infoButton").style.display = "flex";
   document.getElementById("startButton").style.display = "flex";
+  document.getElementById("imprint").style.display = "flex";
   document.getElementById("headerButtons").style.display = "flex";
   document.getElementById("showInfo").style.display = "none";
   document.getElementById("closeInfoBtn").style.display = "none";
   document.getElementById("showInfo").innerHTML = "";
+}
+
+/**
+ * Öffnet das Impressumfenster, indem Hauptmenü-Buttons ausgeblendet und das Impressum angezeigt wird.
+ */
+function openImprint() {
+  document.getElementById("infoButton").style.display = "none";
+  document.getElementById("startButton").style.display = "none";
+  document.getElementById("imprint").style.display = "none";
+  document.getElementById("headerButtons").style.display = "none";
+  document.getElementById("closeImprintBtn").style.display = "flex";
+  document.getElementById("imprintInfo").style.display = "flex";
+  let showImprint = document.getElementById("imprintInfo");
+  showImprint.innerHTML = getImprint();
+}
+
+/**
+ * Schließt das Impressum, indem die ursprünglichen Menü-Buttons wieder angezeigt werden.
+ */
+function closeImprint() {
+  document.getElementById("infoButton").style.display = "flex";
+  document.getElementById("startButton").style.display = "flex";
+  document.getElementById("imprint").style.display = "flex";
+  document.getElementById("headerButtons").style.display = "flex";
+  document.getElementById("closeImprintBtn").style.display = "none";
+  document.getElementById("imprintInfo").style.display = "none";
+  document.getElementById("imprintInfo").innerHTML = '';
+  
 }
 
 /**

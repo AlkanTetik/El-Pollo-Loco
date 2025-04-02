@@ -30,7 +30,7 @@ h1 {
     cursor: pointer;
 }
 
-#impressumButton {
+.imprintButton {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -46,8 +46,9 @@ h1 {
     font-family: "Knewave", system-ui;
 }
 
-#impressumButton:hover, #soundOnImg:hover, #soundOffImg:hover {
+.imprintButton:hover {
     background-color: rgb(16, 98, 250);
+    text-decoration: underline;
 }
 
 /* Container, der die Mobile Buttons hält */
@@ -62,22 +63,29 @@ h1 {
     filter: invert(1);
 }
 
-.soundOnImg, .soundOffImg {
-    width: 28px;
-    height: 33px;
-    cursor: pointer;
-}
-
 #soundOffImg {
     display: none;
     position: absolute;
     top: 15px;
     right: 15px;
     cursor: pointer;
-    background-color: rgb(0, 90, 255); /* Blau, das zu Orange invertiert wird */
+    background-color: rgb(0, 90, 255);
+    /* Blau, das zu Orange invertiert wird */
     border: none;
     border-radius: 50%;
     filter: invert(1);
+}
+
+.soundOnImg,
+.soundOffImg {
+    width: 28px;
+    height: 33px;
+    cursor: pointer;
+}
+
+#soundOnImg:hover,
+#soundOffImg:hover {
+    background-color: rgb(16, 98, 250);
 }
 
 .playInfo {
@@ -153,12 +161,12 @@ h1 {
     background-image: url('img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: cover;
     background-position: center;
-  }
-  
-  .otherLayout {
+}
+
+.otherLayout {
     height: 480px;
-  }
-  
+}
+
 
 /* Canvas füllt den Container */
 #canvas {
@@ -202,6 +210,26 @@ h1 {
     background-color: #f7de00dc;
     border: 5px solid rgba(12, 192, 12, 0.692);
     color: rgba(12, 192, 12, 0.692);
+}
+
+.imprint {
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+}
+
+#imprintInfo {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
 }
 
 #showInfo {
@@ -361,9 +389,28 @@ h1 {
     z-index: 10;
 }
 
+.closeImprintBtn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 5px solid #12ce41;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #12ce41;
+    font-family: "Knewave", system-ui;
+    transition: 0.3s ease-in-out;
+    z-index: 10;
+}
+
+
 #backWinMenu:hover,
 #backLoseMenu:hover,
-.closeInfoBtn:hover {
+.closeInfoBtn:hover,
+.closeImprintBtn:hover {
     border: 5px solid #00ff40;
     background-color: rgba(192, 165, 12, 0);
     color: #00ff40;
@@ -397,7 +444,8 @@ h1 {
     position: absolute;
     bottom: 10px;
     left: 20px;
-    pointer-events: none; /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
+    pointer-events: none;
+    /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
     cursor: pointer;
     background: none;
     border: none;
@@ -414,7 +462,8 @@ h1 {
     position: absolute;
     bottom: 10px;
     left: 80px;
-    pointer-events: none; /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
+    pointer-events: none;
+    /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
     cursor: pointer;
     background: none;
     border: none;
@@ -431,8 +480,9 @@ h1 {
     display: none;
     position: absolute;
     bottom: 10px;
-    right:  20px;
-    pointer-events: none; /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
+    right: 20px;
+    pointer-events: none;
+    /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
     cursor: pointer;
     background: none;
     border: none;
@@ -448,8 +498,9 @@ h1 {
     display: none;
     position: absolute;
     bottom: 10px;
-    right:  80px;
-    pointer-events: none; /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
+    right: 80px;
+    pointer-events: none;
+    /* Damit Canvas-Klicks nicht blockiert werden, falls nötig */
     cursor: pointer;
     background: none;
     border: none;
@@ -478,18 +529,19 @@ h1 {
     padding-top: 40vh;
     font-size: 24px;
     box-sizing: border-box;
-  }
+}
 
-  .turnDevice {
-    width: 105px; 
-    height: 105px; 
+.turnDevice {
+    width: 105px;
+    height: 105px;
     transform: rotate(90deg);
-  }
+}
 
 /* Stil der Buttons */
 #mobileButtons button {
     display: none;
-    pointer-events: all; /* Erlaubt Interaktionen mit den Buttons */
+    pointer-events: all;
+    /* Erlaubt Interaktionen mit den Buttons */
     background-color: #ff9900;
     border-radius: 100%;
 }
@@ -498,27 +550,27 @@ h1 {
 #gameContainer:fullscreen,
 #gameContainer:-webkit-full-screen,
 #gameContainer:-ms-fullscreen {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 /* Ebenso für den Canvas */
 #canvas:fullscreen,
 #canvas:-webkit-full-screen,
 #canvas:-ms-fullscreen {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 /* Anpassung über die fullscreen-active Klasse */
 #gameContainer.fullscreen-active {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 #gameContainer.fullscreen-active #canvas {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 /* Overlays im Vollbildmodus anpassen */
@@ -530,15 +582,19 @@ h1 {
 #gameContainer:-ms-fullscreen #overlayWin,
 #gameContainer.fullscreen-active #overlayLose,
 #gameContainer.fullscreen-active #overlayWin {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  transform: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
 }
 
 @media (max-width: 1280px) {
-    #leftButton, #rightButton, #jumpButton, #throwButton {
+
+    #leftButton,
+    #rightButton,
+    #jumpButton,
+    #throwButton {
         display: flex;
     }
 
@@ -546,11 +602,29 @@ h1 {
         display: none;
     }
 
+    h1 {
+        margin-top: 80px;
+    }
+
     .turnDevice {
-        width: 185px; 
-        height: 185px; 
+        width: 185px;
+        height: 185px;
         transform: rotate(90deg);
-      }
+    }
+
+    .closeImprintBtn, .closeInfoBtn {
+        font-size: 12px;
+    }
+
+    .imprint {
+        font-size: 14px;
+    }
+
+    .imprintButton {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
 }
 
 @media only screen and (max-width: 720px) {
@@ -563,10 +637,10 @@ h1 {
     }
 
     .turnDevice {
-        width: 105px; 
-        height: 105px; 
+        width: 105px;
+        height: 105px;
         transform: rotate(90deg);
-      }
+    }
 }
 
 @media only screen and (max-height: 480px) {
@@ -608,5 +682,10 @@ h1 {
 
     .h1 {
         margin-top: 0px;
+    }
+
+    .imprint {
+        margin: 20 auto;
+        font-size: 13px;
     }
 }
