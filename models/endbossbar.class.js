@@ -1,6 +1,6 @@
 /**
- * Repräsentiert die Lebensleiste des Endbosses.
- * Erbt von MovableObject.
+ * Represents the health bar of the EndBoss.
+ * Inherits from MovableObject.
  */
 class EndbossBar extends MovableObject {
     
@@ -17,7 +17,7 @@ class EndbossBar extends MovableObject {
     percentage = 100;
 
     /**
-     * Erstellt eine neue Instanz der EndbossBar.
+     * Creates a new instance of EndbossBar.
      */
     constructor() {
         super();
@@ -32,8 +32,8 @@ class EndbossBar extends MovableObject {
     }
 
     /**
-     * Setzt die Lebensanzeige anhand des übergebenen Gesundheitswerts.
-     * @param {number} health - Der aktuelle Gesundheitswert des Endbosses.
+     * Sets the health display based on the given health value.
+     * @param {number} health - The current health value of the EndBoss.
      */
     setPercentage(health) {
         this.health = health;
@@ -42,8 +42,8 @@ class EndbossBar extends MovableObject {
     }
 
     /**
-     * Reduziert die Gesundheit des Endbosses um den angegebenen Wert.
-     * @param {number} [hit=1] - Der Schadenswert, der abgezogen wird.
+     * Reduces the EndBoss's health by the specified amount.
+     * @param {number} [hit=1] - The amount of damage to subtract.
      */
     hit(hit = 1) {
         this.health -= hit;
@@ -55,8 +55,8 @@ class EndbossBar extends MovableObject {
     }
 
     /**
-     * Ermittelt den Index des entsprechenden Bildpfads basierend auf der aktuellen Gesundheit.
-     * @returns {number} Der Index des Bildpfads im IMAGES-Array.
+     * Determines the index of the corresponding image path based on the current health.
+     * @returns {number} The index of the image path in the IMAGES array.
      */
     resolveImageIndex() {
         if (this.health == 5) {

@@ -1,6 +1,6 @@
 /**
- * Repräsentiert die Flaschenanzeige (BottleBar) im Spiel, die den aktuellen Füllstand der Flaschen visualisiert.
- * Erbt von {@link DrawableObject}.
+ * Represents the bottle display (BottleBar) in the game, which visualizes the current bottle fill level.
+ * Inherits from {@link DrawableObject}.
  */
 class BottleBar extends DrawableObject {
     IMAGES = [
@@ -13,7 +13,7 @@ class BottleBar extends DrawableObject {
     ];
 
     /**
-     * Erzeugt eine neue Instanz von BottleBar, lädt die Bildressourcen und setzt Position, Größe sowie den Anfangsstatus.
+     * Creates a new instance of BottleBar, loads the image resources, and sets the position, size, and initial status.
      */
     constructor(){
         super();
@@ -28,7 +28,7 @@ class BottleBar extends DrawableObject {
     }
 
     /**
-     * Erhöht den Flaschenzähler, sofern dieser unter 5 liegt, und aktualisiert die Anzeige.
+     * Increases the bottle count if it is below 5 and updates the display.
      */
     increaseBottleCount() {
         if (this.bottleCount < 5) { 
@@ -38,7 +38,7 @@ class BottleBar extends DrawableObject {
     }     
    
     /**
-     * Verringert den Flaschenzähler, sofern dieser über 0 liegt, und aktualisiert die Anzeige.
+     * Decreases the bottle count if it is above 0 and updates the display.
      */
     decreaseBottleCount() {
         if (this.bottleCount > 0) {
@@ -48,9 +48,9 @@ class BottleBar extends DrawableObject {
     }
 
     /**
-     * Aktualisiert die Anzeige der BottleBar basierend auf dem aktuellen Flaschenzähler.
+     * Updates the display of the BottleBar based on the current bottle count.
      *
-     * @param {number} percentage - Der aktuelle Füllstand in Prozent (bzw. Flaschenanzahl).
+     * @param {number} percentage - The current fill level in percentage (or number of bottles).
      */
     setPercentage(percentage) {
         this.percentage = percentage;
@@ -59,9 +59,9 @@ class BottleBar extends DrawableObject {
     }
 
     /**
-     * Bestimmt den Index im IMAGES-Array, der der aktuellen Anzahl der Flaschen entspricht.
+     * Determines the index in the IMAGES array that corresponds to the current number of bottles.
      *
-     * @returns {number} Der Index, der anzeigt, welches Bild der BottleBar verwendet werden soll.
+     * @returns {number} The index indicating which image the BottleBar should use.
      */
     resolveImageIndex() {
         if (this.bottleCount >= 5) {

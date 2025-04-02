@@ -1,6 +1,6 @@
 /**
- * Repräsentiert eine Salsa-Flasche, die auf dem Boden liegt und animiert wird.
- * Erbt von {@link MovableObject}.
+ * Represents a salsa bottle lying on the ground and being animated.
+ * Inherits from {@link MovableObject}.
  */
 class SalsaBottle extends MovableObject {
     height = 100;
@@ -13,8 +13,8 @@ class SalsaBottle extends MovableObject {
     ];
 
     /**
-     * Erzeugt eine neue Instanz von SalsaBottle, lädt die Bildressourcen,
-     * setzt die Startposition und startet die Animation.
+     * Creates a new instance of SalsaBottle, loads the image resources,
+     * sets the starting position, and starts the animation.
      */
     constructor() {
         super();
@@ -25,8 +25,8 @@ class SalsaBottle extends MovableObject {
     }
     
     /**
-     * Startet die Animation der SalsaBottle, indem in regelmäßigen Abständen
-     * die Bildressourcen durchlaufen werden.
+     * Starts the animation of the SalsaBottle by cycling through 
+     * the image resources at regular intervals.
      */
     animate() {
         setInterval(() => {

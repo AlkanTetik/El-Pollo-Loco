@@ -1,5 +1,5 @@
 /**
- * Repräsentiert die Tastatursteuerung.
+ * Represents the keyboard controls.
  */
 class Keyboard {
     LEFT = false;

@@ -1,6 +1,6 @@
 /**
- * Repräsentiert ein bewegliches Objekt im Spiel, das grundlegende Physik, Kollisionsabfragen und Animationen unterstützt.
- * Erbt von {@link DrawableObject}.
+ * Represents a movable object in the game that supports basic physics, collision detection, and animations.
+ * Inherits from {@link DrawableObject}.
  */
 class MovableObject extends DrawableObject {
     speed = 0.15;
@@ -11,8 +11,8 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
 
     /**
-     * Wendet die Schwerkraft auf das Objekt an. Solange das Objekt oberhalb des Bodens ist oder eine positive
-     * vertikale Geschwindigkeit besitzt, wird die y-Position angepasst.
+     * Applies gravity to the object. As long as the object is above the ground or has a positive
+     * vertical speed, the y-position will be adjusted.
      */
     applyGravity() {
         setInterval(() => {
@@ -24,10 +24,10 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Überprüft, ob das Objekt sich oberhalb des Bodens befindet.
-     * Speziell für ThrowableObjects wird immer true zurückgegeben.
+     * Checks if the object is above the ground.
+     * Always returns true for ThrowableObjects.
      *
-     * @returns {boolean} True, wenn das Objekt oberhalb des Bodens ist, sonst false.
+     * @returns {boolean} True if the object is above the ground, otherwise false.
      */
     isAboveGround() {
         if (this instanceof ThrowableObject) { 
@@ -38,10 +38,10 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Überprüft, ob dieses Objekt mit einem anderen kollidiert.
+     * Checks if this object is colliding with another object.
      *
-     * @param {MovableObject} mo - Das Objekt, mit dem die Kollision geprüft wird.
-     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     * @param {MovableObject} mo - The object to check for collision.
+     * @returns {boolean} True if a collision is detected, otherwise false.
      */
     isColliding(mo) {
         const offsetX = 10;
@@ -64,11 +64,11 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Überprüft, ob das Objekt mit einer Münze kollidiert.
-     * Es wird zusätzlich überprüft, ob sich die Münze unterhalb der Mitte des Objekts befindet.
+     * Checks if the object is colliding with a coin.
+     * Additionally verifies if the coin is positioned below the center of the object.
      *
-     * @param {Object} coin - Das Münzen-Objekt, das geprüft wird.
-     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     * @param {Object} coin - The coin object to check for collision.
+     * @returns {boolean} True if a collision is detected, otherwise false.
      */
     isCoinColliding(coin) {
         const offsetX = 20;
@@ -106,10 +106,10 @@ class MovableObject extends DrawableObject {
     }
     
     /**
-     * Überprüft, ob das Objekt mit einer Flasche kollidiert.
+     * Checks if the object is colliding with a bottle.
      *
-     * @param {Object} bottle - Das Flaschen-Objekt, das geprüft wird.
-     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     * @param {Object} bottle - The bottle object to check for collision.
+     * @returns {boolean} True if a collision is detected, otherwise false.
      */
     isBottleColliding(bottle) {
         const offsetX = 30;
@@ -136,10 +136,10 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Reduziert die Energie des Objekts um den angegebenen Schaden. Falls die Energie unter oder gleich 0 sinkt,
-     * wird sie auf 0 gesetzt.
+     * Reduces the object's energy by the specified damage value. If the energy falls to 0 or below,
+     * it is set to 0.
      *
-     * @param {number} [damage=20] - Der Schaden, der dem Objekt zugefügt wird.
+     * @param {number} [damage=20] - The damage value to subtract.
      */
     hit(damage = 20) {
         this.energy -= damage;
@@ -151,9 +151,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Prüft, ob das Objekt kürzlich Schaden genommen hat.
+     * Checks if the object has recently taken damage.
      *
-     * @returns {boolean} True, wenn das Objekt in den letzten 1 Sekunde Schaden genommen hat, sonst false.
+     * @returns {boolean} True if the object has taken damage in the last 1 second, otherwise false.
      */
     isHurt() {
         this.timePassed = new Date().getTime() - this.lastHit;
@@ -162,9 +162,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Überprüft, ob das Objekt tot ist (Energie gleich 0). Stoppt zudem laufende Intervalle.
+     * Checks if the object is dead (energy is 0). Also stops any running intervals.
      *
-     * @returns {boolean} True, wenn das Objekt tot ist, sonst false.
+     * @returns {boolean} True if the object is dead, otherwise false.
      */
     isDead() {
         clearInterval(this.otherInterval);
@@ -173,9 +173,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Spielt eine Animation ab, indem es das Bild aus dem übergebenen Array zyklisch wechselt.
+     * Plays an animation by cycling through the images in the given array.
      *
-     * @param {string[]} images - Array von Bildpfaden für die Animation.
+     * @param {string[]} images - Array of image paths for the animation.
      */
     playAnimation(images) {
         let i = this.currentImage % images.length;
@@ -187,21 +187,21 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Bewegt das Objekt nach rechts.
+     * Moves the object to the right.
      */
     moveRight() {
         this.x += this.speed;
     }
 
     /**
-     * Bewegt das Objekt nach links.
+     * Moves the object to the left.
      */
     moveLeft() {
         this.x -= this.speed;
     }
 
     /**
-     * Lässt das Objekt springen, indem die vertikale Geschwindigkeit gesetzt wird.
+     * Makes the object jump by setting the vertical speed.
      */
     jump() {
         this.speedY = 25;

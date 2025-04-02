@@ -1,6 +1,6 @@
 /**
- * Repräsentiert einen kleinen Gegner (Chicken), der sich im Spiel bewegt.
- * Erbt von {@link MovableObject}.
+ * Represents a small enemy (Chicken) that moves in the game.
+ * Inherits from {@link MovableObject}.
  */
 class Chick extends MovableObject {
     height = 60;
@@ -20,7 +20,7 @@ class Chick extends MovableObject {
     ];
 
     /**
-     * Erzeugt eine neue Instanz von Chick und initialisiert deren Eigenschaften.
+     * Creates a new instance of Chick and initializes its properties.
      */
     constructor() {
         super();
@@ -34,7 +34,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Startet die verschiedenen Animationsintervalle für den Chick.
+     * Starts the various animation intervals for the Chick.
      */
     animate() {
         setInterval(() => {
@@ -53,7 +53,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Bewegt den Chick in die aktuelle Bewegungsrichtung.
+     * Moves the Chick in the current direction.
      */
     move() {
         if (this.movingRight) {
@@ -64,7 +64,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Wechselt zwischen den Animationen für das Gehen und den Tod.
+     * Switches between the walking and dead animations.
      */
     walkingOrDeadInterval() {
         if (this.isDead) {
@@ -75,7 +75,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Bestimmt in regelmäßigen Abständen, ob die Bewegungsrichtung gewechselt werden soll.
+     * Determines at regular intervals whether the movement direction should be changed.
      */
     directionInterval() {
         if (!this.isDead) {
@@ -84,7 +84,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Wechselt die Bewegungsrichtung des Chick.
+     * Toggles the movement direction of the Chick.
      */
     toggleDirection() {
         this.movingRight = !this.movingRight;
@@ -92,7 +92,7 @@ class Chick extends MovableObject {
     }
 
     /**
-     * Setzt den Chick in den "toten" Zustand, reduziert dessen Energie und spielt den entsprechenden Sound.
+     * Sets the Chick to the "dead" state, reduces its energy, and plays the corresponding sound.
      */
     hit() {
         this.isDead = true;

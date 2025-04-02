@@ -1,6 +1,6 @@
 /**
- * Repräsentiert ein werfbares Objekt im Spiel, das sich durch die Luft bewegt und beim Aufprall eine Animation abspielt.
- * Erbt von {@link MovableObject}.
+ * Represents a throwable object in the game, which moves through the air and plays an animation upon impact.
+ * Inherits from {@link MovableObject}.
  */
 class ThrowableObject extends MovableObject {
     IMAGES_THROWING = [
@@ -20,11 +20,11 @@ class ThrowableObject extends MovableObject {
     ];
 
     /**
-     * Erzeugt eine neue Instanz eines werfbaren Objekts.
-     * Lädt die nötigen Bilder, setzt die Position, Größe und initialisiert die Wurfbewegung.
+     * Creates a new instance of a throwable object.
+     * Loads the necessary images, sets the position, size, and initializes the throw movement.
      *
-     * @param {number} x - Die x-Position, an der das Objekt erstellt wird.
-     * @param {number} y - Die y-Position, an der das Objekt erstellt wird.
+     * @param {number} x - The x-position where the object is created.
+     * @param {number} y - The y-position where the object is created.
      */
     constructor(x, y) {
         super();
@@ -40,19 +40,19 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Überprüft, ob das Objekt sich oberhalb des Bodens befindet.
+     * Checks if the object is above the ground.
      *
-     * @returns {boolean} True, wenn das Objekt oberhalb des Bodens ist, sonst false.
+     * @returns {boolean} True if the object is above the ground, otherwise false.
      */
     isAboveGround() {
         return this.y < 350;
     }
 
     /**
-     * Überprüft, ob dieses werfbare Objekt mit einem feindlichen Objekt kollidiert.
+     * Checks if this throwable object collides with an enemy object.
      *
-     * @param {MovableObject} mo - Das feindliche Objekt, mit dem kollidiert werden soll.
-     * @returns {boolean} True, wenn eine Kollision vorliegt, sonst false.
+     * @param {MovableObject} mo - The enemy object to check collision with.
+     * @returns {boolean} True if a collision occurs, otherwise false.
      */
     isBottleCollidingEnemy(mo) {
         const offsetX = 40;
@@ -64,7 +64,7 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Initialisiert den Wurf, setzt die vertikale Geschwindigkeit und wendet die Schwerkraft an.
+     * Initializes the throw, sets the vertical speed, and applies gravity.
      */
     throw() {
         this.speedY = 30;
@@ -73,8 +73,8 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Führt die Wurfbewegung des Objekts aus, indem es sich horizontal bewegt und die Wurf-Animation abspielt.
-     * Sobald das Objekt nicht mehr oberhalb des Bodens ist, wird die Landungsanimation gestartet.
+     * Performs the throw movement of the object by moving it horizontally and playing the throw animation.
+     * Once the object is no longer above the ground, the landing animation is triggered.
      */
     performThrowMovement() {
         let throwingInterval = setInterval(() => {
@@ -92,7 +92,7 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Spielt die Landungsanimation ab. Nach Beendigung der Animation wird das Objekt aus dem Spiel entfernt.
+     * Plays the landing animation. Once the animation is finished, the object is removed from the game.
      */
     playLandedAnimation() {
         let landedInterval = setInterval(() => {

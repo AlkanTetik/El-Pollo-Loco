@@ -1,18 +1,18 @@
 /**
- * Repräsentiert ein Hintergrundobjekt im Spiel.
- * Erbt von {@link MovableObject} und positioniert sich basierend auf der übergebenen Position.
+ * Represents a background object in the game.
+ * Inherits from {@link MovableObject} and positions itself based on the provided position.
  */
 class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;
 
     /**
-     * Erzeugt eine neue Instanz von BackgroundObject, lädt das übergebene Bild und
-     * positioniert das Objekt an der angegebenen Stelle.
+     * Creates a new instance of BackgroundObject, loads the provided image, and
+     * positions the object at the specified location.
      *
-     * @param {string} imagePath - Der Pfad zum Bild, das dargestellt werden soll.
-     * @param {number} x - Die x-Position des Hintergrundobjekts.
-     * @param {number} y - Die y-Position (wird intern angepasst).
+     * @param {string} imagePath - The path to the image to be displayed.
+     * @param {number} x - The x-position of the background object.
+     * @param {number} y - The y-position (internally adjusted).
      */
     constructor(imagePath, x, y) {
         super().loadImage(imagePath);

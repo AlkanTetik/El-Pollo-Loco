@@ -1,5 +1,5 @@
 /**
- * Repräsentiert den Endboss im Spiel. Erbt von {@link MovableObject}.
+ * Represents the final boss in the game. Inherits from {@link MovableObject}.
  */
 class EndBoss extends MovableObject {
     height = 400;
@@ -50,9 +50,9 @@ class EndBoss extends MovableObject {
     ];
 
     /**
-     * Erstellt eine neue Instanz von EndBoss.
-     * @param {World} world - Das Spielwelt-Objekt.
-     * @param {Character} character - Die Instanz des Spielcharakters.
+     * Creates a new instance of EndBoss.
+     * @param {World} world - The game world object.
+     * @param {Character} character - The instance of the player character.
      */
     constructor(world, character) {
         super();
@@ -73,7 +73,7 @@ class EndBoss extends MovableObject {
     }
 
     /**
-     * Reduziert die Gesundheit des Endbosses und löst entsprechende Animationen sowie Sounds aus.
+     * Reduces the EndBoss's health and triggers corresponding animations and sounds.
      */
     hit() {
         if (this.health > 0) {
@@ -89,16 +89,16 @@ class EndBoss extends MovableObject {
     }
 
     /**
-     * Prüft, ob der Endboss aktuell im "hurt" Zustand ist.
-     * @returns {boolean} True, wenn die "hurt" Animation läuft, sonst false.
+     * Checks if the EndBoss is currently in the "hurt" state.
+     * @returns {boolean} True if the "hurt" animation is playing, otherwise false.
      */
     isHurt() {
         return this.hurtAnimationRunning;
     }
 
     /**
-     * Überprüft, ob der Endboss tot ist und spielt gegebenenfalls die Siegesmusik ab.
-     * @returns {boolean} True, wenn der Endboss tot ist, sonst false.
+     * Checks if the EndBoss is dead and plays the victory music if applicable.
+     * @returns {boolean} True if the EndBoss is dead, otherwise false.
      */
     isDead() {
         if (this.health <= 0 && !this.dead) {
@@ -113,7 +113,7 @@ class EndBoss extends MovableObject {
     moveInterval;
 
     /**
-     * Startet die Animation des Endbosses basierend auf dem Zustand des Charakters und des Spiels.
+     * Starts the EndBoss animation based on the character's state and game conditions.
      */
     animate() {
         setInterval(() => {
@@ -133,7 +133,7 @@ class EndBoss extends MovableObject {
     }
 
     /**
-     * Wechselt zwischen verschiedenen Animationen basierend auf dem Zustand des Endbosses.
+     * Switches between different animations based on the EndBoss's state.
      */
     otherAnimations() {
         if (this.isDead()) {

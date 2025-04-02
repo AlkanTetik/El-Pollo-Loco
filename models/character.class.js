@@ -1,5 +1,5 @@
 /**
- * Repräsentiert einen spielbaren Charakter.
+ * Represents a playable character.
  * @extends MovableObject
  */
 class Character extends MovableObject {
@@ -75,8 +75,8 @@ class Character extends MovableObject {
     world;
 
     /**
-     * Erstellt eine neue Instanz des Characters.
-     * @param {Object} world - Die Spielwelt, in der der Charakter existiert.
+     * Creates a new instance of Character.
+     * @param {Object} world - The game world in which the character exists.
      */
     constructor(world) {
         super();
@@ -93,7 +93,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Startet die Hauptanimationsschleife für den Charakter.
+     * Starts the main animation loop for the character.
      */
     animate() {
         setInterval(() => {
@@ -108,9 +108,9 @@ class Character extends MovableObject {
         this.animationInterval();
     }
 
-   movementDisabled = false;
+    movementDisabled = false;
     /**
-     * Führt periodisch Animationen basierend auf dem Zustand des Charakters aus.
+     * Periodically performs animations based on the character's state.
      */
     animationInterval() {
         setInterval(() => {
@@ -119,9 +119,9 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
-                // Animation für Schaden abspielen
+                // Play hurt animation
                 this.playAnimation(this.IMAGES_HURT);
-                // Bewegung für 1 Sekunde deaktivieren
+                // Disable movement for 0.8 seconds
                 this.blockMovement(800);
             } else if (this.isAboveGround()) {
                 this.animateJump();
@@ -134,8 +134,8 @@ class Character extends MovableObject {
     }
 
     /**
- * Deaktiviert die Bewegung für die angegebene Dauer in Millisekunden.
- */
+     * Disables movement for the specified duration in milliseconds.
+     */
     blockMovement(duration) {
         this.movementDisabled = true;
         setTimeout(() => {
@@ -144,7 +144,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Bewegt den Charakter nach rechts, falls die entsprechende Taste gedrückt wird.
+     * Moves the character to the right if the corresponding key is pressed.
      */
     keyRight() {
         if (this.movementDisabled) return;
@@ -156,7 +156,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Bewegt den Charakter nach links, falls die entsprechende Taste gedrückt wird.
+     * Moves the character to the left if the corresponding key is pressed.
      */
     keyLeft() {
         if (this.movementDisabled) return;
@@ -168,7 +168,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Löst den Sprung des Charakters aus, wenn die Leertaste gedrückt wird.
+     * Triggers the character's jump when the space key is pressed.
      */
     keyJump() {
         if (this.movementDisabled) return;
@@ -179,7 +179,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Registriert den Wurfvorgang, wenn die Taste 'D' gedrückt wird.
+     * Registers the throw action when the 'D' key is pressed.
      */
     keyThrow() {
         if (this.movementDisabled) return;
@@ -189,8 +189,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Animiert den Leerlauf des Charakters.
-     * Wechselt zur Long-Idle-Animation, wenn der Charakter längere Zeit inaktiv ist.
+     * Animates the character's idle state.
+     * Switches to the long idle animation if the character has been inactive for an extended period.
      */
     animateIdle() {
         const idleDuration = Date.now() - this.lastActionTime;
@@ -206,7 +206,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Animiert den Charakter beim Gehen.
+     * Animates the character while walking.
      */
     animateWalking() {
         this.playAnimation(this.IMAGES_WALKING);
@@ -217,7 +217,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Animiert den Sprung des Charakters.
+     * Animates the character's jump.
      */
     animateJump() {
         this.playAnimation(this.IMAGES_JUMPING);

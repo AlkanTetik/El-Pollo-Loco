@@ -1,10 +1,10 @@
 /**
- * Basisklasse für gemeinsame Objekte, die Bilder laden können.
+ * Base class for common objects that can load images.
  */
 class CollectiveObjects {
     /**
-     * Lädt ein Bild von dem angegebenen Pfad.
-     * @param {string} path - Der Pfad zum Bild.
+     * Loads an image from the specified path.
+     * @param {string} path - The path to the image.
      */
     loadImage(path) {
         this.img = new Image();

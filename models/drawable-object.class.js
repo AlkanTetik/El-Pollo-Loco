@@ -1,5 +1,5 @@
 /**
- * Basisklasse für alle Objekte, die im Spiel gezeichnet werden können.
+ * Base class for all objects that can be drawn in the game.
  */
 class DrawableObject {
     x = 120;
@@ -12,26 +12,26 @@ class DrawableObject {
     camera_x = 0;
 
     /**
-     * Lädt ein einzelnes Bild von dem angegebenen Pfad.
-     * @param {string} path - Der Pfad zum Bild.
+     * Loads a single image from the specified path.
+     * @param {string} path - The path to the image.
      */
     loadImage(path) {
         this.img = new Image();
         this.img.onload = () => {
-            // Bild wurde erfolgreich geladen
+            // Image successfully loaded
         };
         this.img.src = path;
     }
 
     /**
-     * Lädt mehrere Bilder aus einem Array von Pfaden und speichert sie im imageCache.
-     * @param {string[]} arr - Ein Array mit Bildpfaden.
+     * Loads multiple images from an array of paths and stores them in the imageCache.
+     * @param {string[]} arr - An array of image paths.
      */
     loadImages(arr) {
         arr.forEach((path) => {
             let image = new Image();
             image.onload = () => {
-                // Bild wurde erfolgreich geladen
+                // Image successfully loaded
             };
             image.src = path;
             this.imageCache[path] = image;
@@ -39,16 +39,16 @@ class DrawableObject {
     }
 
     /**
-     * Zeichnet das aktuelle Bild des Objekts auf den angegebenen Canvas-Kontext.
-     * @param {CanvasRenderingContext2D} ctx - Der Zeichenkontext des Canvas.
+     * Draws the object's current image onto the specified canvas context.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
      */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     /**
-     * Zeichnet einen Rahmen um das Objekt, wenn es sich um einen Character, Chicken oder EndBoss handelt.
-     * @param {CanvasRenderingContext2D} ctx - Der Zeichenkontext des Canvas.
+     * Draws a frame around the object if it is a Character, Chicken, or EndBoss.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
      */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof EndBoss) {

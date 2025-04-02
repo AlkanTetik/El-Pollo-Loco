@@ -1,6 +1,6 @@
 /**
- * Repräsentiert einen normalen Chicken-Gegner im Spiel.
- * Erbt von {@link MovableObject} und unterstützt grundlegende Bewegungs- und Animationslogik.
+ * Represents a normal Chicken enemy in the game.
+ * Inherits from {@link MovableObject} and supports basic movement and animation logic.
  */
 class Chicken extends MovableObject {
     height = 80;
@@ -20,7 +20,7 @@ class Chicken extends MovableObject {
     ];
 
     /**
-     * Erzeugt eine neue Instanz von Chicken, lädt die benötigten Bilder, setzt die Startposition und initialisiert die Animation.
+     * Creates a new instance of Chicken, loads the required images, sets the starting position, and initializes the animation.
      */
     constructor() {
         super();
@@ -34,8 +34,8 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Startet die Animationsintervalle für den Chicken.
-     * Führt Bewegungen, Animationswechsel und Richtungswechsel in regelmäßigen Abständen aus.
+     * Starts the animation intervals for the Chicken.
+     * Executes movements, animation switches, and direction changes at regular intervals.
      */
     animate() {
         setInterval(() => {
@@ -54,7 +54,7 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Bewegt den Chicken in die aktuelle Bewegungsrichtung.
+     * Moves the Chicken in the current direction.
      */
     move() {
         if (this.movingRight) {
@@ -65,7 +65,7 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Wechselt zwischen den Animationen für das Gehen und den Tod.
+     * Switches between the walking and dead animations.
      */
     walkingOrDeadInterval() {
         if (this.isDead) {
@@ -76,7 +76,7 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Prüft in regelmäßigen Abständen, ob die Bewegungsrichtung gewechselt werden soll.
+     * Checks at regular intervals whether the movement direction should be changed.
      */
     directionInterval() {
         if (!this.isDead) {
@@ -85,7 +85,7 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Wechselt die Bewegungsrichtung des Chicken.
+     * Toggles the movement direction of the Chicken.
      */
     toggleDirection() {
         this.movingRight = !this.movingRight;
@@ -93,7 +93,7 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Löst die "Hit"-Reaktion aus, markiert den Chicken als tot und spielt den entsprechenden Sound ab.
+     * Triggers the "hit" reaction, marks the Chicken as dead, and plays the corresponding sound.
      */
     hit() {
         this.isDead = true;

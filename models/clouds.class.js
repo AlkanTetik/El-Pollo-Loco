@@ -1,6 +1,6 @@
 /**
- * Repräsentiert die Wolken im Hintergrund des Spiels.
- * Erbt von {@link MovableObject} und bewegt sich langsam nach links.
+ * Represents the clouds in the background of the game.
+ * Inherits from {@link MovableObject} and moves slowly to the left.
  */
 class Clouds extends MovableObject {
   y = 10;
@@ -14,9 +14,9 @@ class Clouds extends MovableObject {
   ];
 
   /**
-   * Erstellt eine neue Instanz von Clouds.
-   * Lädt die erforderlichen Bildressourcen, setzt die Startposition und Geschwindigkeit,
-   * und startet die Animation.
+   * Creates a new instance of Clouds.
+   * Loads the required image resources, sets the starting position and speed,
+   * and starts the animation.
    */
   constructor() {
     super();
@@ -28,8 +28,8 @@ class Clouds extends MovableObject {
   }
 
   /**
-   * Startet die Animation der Wolken.
-   * Bewegt die Wolken kontinuierlich nach links und spielt die zugehörige Animation ab.
+   * Starts the animation of the clouds.
+   * Continuously moves the clouds to the left and plays the associated animation.
    */
   animate() {
     setInterval(() => {

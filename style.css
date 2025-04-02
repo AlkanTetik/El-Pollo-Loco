@@ -204,6 +204,11 @@ h1 {
     font-size: 24px;
 }
 
+p {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+
 #startButton:hover,
 #infoButton:hover {
     transform: 0.3s ease-in-out;
@@ -213,7 +218,11 @@ h1 {
 }
 
 .imprint {
-    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     width: 100%;
     text-align: center;
 }
@@ -612,7 +621,8 @@ h1 {
         transform: rotate(90deg);
     }
 
-    .closeImprintBtn, .closeInfoBtn {
+    .closeImprintBtn,
+    .closeInfoBtn {
         font-size: 12px;
     }
 

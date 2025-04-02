@@ -1,5 +1,5 @@
 /**
- * Stellt die Spielwelt dar.
+ * Represents the game world.
  */
 class World {
     character;
@@ -18,9 +18,9 @@ class World {
     throwableObj = [];
 
     /**
-     * Erstellt eine neue Instanz der Welt.
-     * @param {HTMLCanvasElement} canvas - Das Canvas-Element, auf dem das Spiel gezeichnet wird.
-     * @param {Keyboard} keyboard - Das Keyboard-Objekt für die Steuerung.
+     * Creates a new instance of the world.
+     * @param {HTMLCanvasElement} canvas - The canvas element on which the game is drawn.
+     * @param {Keyboard} keyboard - The keyboard object for controls.
      */
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -43,7 +43,7 @@ class World {
     }
 
     /**
-     * Setzt das Level zurück.
+     * Resets the level.
      */
     resetLevel() {
         this.level = createLevel1();
@@ -56,14 +56,14 @@ class World {
     }
 
     /**
-     * Setzt die Welt-Referenz im Character.
+     * Sets the world reference in the character.
      */
     setWorld() {
         this.character.world = this;
     }
 
     /**
-     * Zeichnet die Spielwelt und startet die Animationsschleife.
+     * Draws the game world and starts the animation loop.
      */
     draw() {
         this.clearAndTranslate();
@@ -73,7 +73,7 @@ class World {
     }
     
     /**
-     * Löscht das Canvas und setzt die Kamera.
+     * Clears the canvas and sets the camera.
      */
     clearAndTranslate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -82,7 +82,7 @@ class World {
     }
     
     /**
-     * Zeichnet alle Objekte des Levels.
+     * Draws all objects of the level.
      */
     drawLevelObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -96,7 +96,7 @@ class World {
     }
     
     /**
-     * Zeichnet die UI-Elemente.
+     * Draws the UI elements.
      */
     drawUI() {
         this.addToMap(this.bottlebar);
@@ -112,7 +112,7 @@ class World {
     }    
 
     /**
-     * Stoppt alle Intervalle und Animationen.
+     * Stops all intervals and animations.
      */
     stop() {
         clearInterval(this.collisionInterval);
@@ -120,11 +120,11 @@ class World {
         cancelAnimationFrame(this.animationFrameID);
     }
     
-    collisionInterval
+    collisionInterval;
     otherInterval;
 
     /**
-     * Startet die Spiel-Loop mit verschiedenen Intervallen.
+     * Starts the game loop with various intervals.
      */
     run() {
         this.collisionInterval = setInterval(() => {
@@ -142,10 +142,10 @@ class World {
     }
 
     /**
-     * Verarbeitet die Kollision zwischen Charakter und einem Chicken.
-     * @param {Chicken} enemy - Der getroffen Chicken-Feind.
-     * @param {number} verticalDiff - Vertikale Differenz zur Erkennung des Sprungs.
-     * @param {Array} chickensToKill - Array, in dem zu tötende Hühner gesammelt werden.
+     * Processes the collision between the character and a Chicken.
+     * @param {Chicken} enemy - The hit chicken enemy.
+     * @param {number} verticalDiff - Vertical difference for detecting the jump.
+     * @param {Array} chickensToKill - Array to collect chickens to be killed.
      */
     handleChickenCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 1) {
@@ -158,10 +158,10 @@ class World {
     }
 
     /**
-     * Verarbeitet die Kollision zwischen Charakter und einem Chick.
-     * @param {Chick} enemy - Der getroffen Chick-Feind.
-     * @param {number} verticalDiff - Vertikale Differenz zur Erkennung des Sprungs.
-     * @param {Array} chickensToKill - Array, in dem zu tötende Hühner gesammelt werden.
+     * Processes the collision between the character and a Chick.
+     * @param {Chick} enemy - The hit chick enemy.
+     * @param {number} verticalDiff - Vertical difference for detecting the jump.
+     * @param {Array} chickensToKill - Array to collect chickens to be killed.
      */
     handleChickCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.8) {
@@ -174,9 +174,9 @@ class World {
     }
 
     /**
-     * Verarbeitet die Kollision zwischen Charakter und dem Endboss.
-     * @param {EndBoss} enemy - Der Endboss.
-     * @param {number} verticalDiff - Vertikale Differenz zur Erkennung des Sprungs.
+     * Processes the collision between the character and the EndBoss.
+     * @param {EndBoss} enemy - The EndBoss.
+     * @param {number} verticalDiff - Vertical difference for detecting the jump.
      */
     handleEndBossCollision(enemy, verticalDiff) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.1) {
@@ -189,8 +189,8 @@ class World {
     }
 
     /**
-     * Verarbeitet alle Hühner-Kollisionen nach dem Sprung.
-     * @param {Array} chickensToKill - Array der Hühner, die getötet werden sollen.
+     * Processes all chicken collisions after the jump.
+     * @param {Array} chickensToKill - Array of chickens to be killed.
      */
     processChickenCollisions(chickensToKill) {
         this.character.jump();
@@ -206,7 +206,7 @@ class World {
     }
 
     /**
-     * Überprüft, ob der Spieler verloren hat.
+     * Checks if the player has lost.
      */
     checkLose() {
         if (this.character.energy == 0 && !this.gameOver) {
@@ -223,7 +223,7 @@ class World {
     }
 
     /**
-     * Zeigt den "Verloren"-Overlay an.
+     * Displays the "Lost" overlay.
      */
     showLose() {
         let overlay = document.getElementById('overlayLose');
@@ -244,7 +244,7 @@ class World {
     }
 
     /**
-     * Überprüft, ob der Spieler gewonnen hat.
+     * Checks if the player has won.
      */
     checkWin() {
         if (this.gameOver) return;
@@ -260,7 +260,7 @@ class World {
     }
 
     /**
-     * Zeigt den "Gewonnen"-Overlay an.
+     * Displays the "Victory" overlay.
      */
     showVictory() {
         let overlay = document.getElementById('overlayWin');
@@ -281,7 +281,7 @@ class World {
     }
 
     /**
-     * Überprüft alle Kollisionen zwischen dem Charakter und Feinden.
+     * Checks all collisions between the character and enemies.
      */
     checkCollisions() {
         let chickensToKill = [];
@@ -303,7 +303,7 @@ class World {
     }
 
     /**
-     * Überprüft, ob der Charakter eine Münze eingesammelt hat.
+     * Checks if the character has collected a coin.
      */
     checkCoinCollection() {
         this.level.coins.forEach((coin, index) => {
@@ -316,7 +316,7 @@ class World {
     }
 
     /**
-     * Überprüft, ob der Charakter eine Flasche eingesammelt hat.
+     * Checks if the character has collected a bottle.
      */
     checkBottleCollection() {
         this.level.salsabottle.forEach((bottle, index) => {
@@ -329,7 +329,7 @@ class World {
     }
 
     /**
-     * Überprüft, ob eine geworfene Flasche einen Feind trifft.
+     * Checks if a thrown bottle hits an enemy.
      */
     checkBottleEnemyCollision() {
         this.throwableObj.forEach((bottle, bottleIndex) => {
@@ -342,9 +342,9 @@ class World {
     }
     
     /**
-     * Verarbeitet den Treffer einer Flasche an einem Feind.
-     * @param {number} bottleIndex - Der Index der geworfenen Flasche.
-     * @param {Enemy} enemy - Der getroffene Feind.
+     * Processes the collision of a bottle hitting an enemy.
+     * @param {number} bottleIndex - The index of the thrown bottle.
+     * @param {Enemy} enemy - The enemy that was hit.
      */
     processBottleCollision(bottleIndex, enemy) {
         this.throwableObj.splice(bottleIndex, 1);
@@ -359,8 +359,8 @@ class World {
     }
     
     /**
-     * Plant das Entfernen eines Feindes nach einem Treffer.
-     * @param {Enemy} enemy - Der zu entfernende Feind.
+     * Schedules the removal of an enemy after a hit.
+     * @param {Enemy} enemy - The enemy to be removed.
      */
     scheduleEnemyRemoval(enemy) {
         setTimeout(() => {
@@ -372,7 +372,7 @@ class World {
     }    
 
     /**
-     * Überprüft, ob ein werfbares Objekt geworfen werden soll.
+     * Checks if a throwable object should be thrown.
      */
     checkThrowAbleObject() {
         if (this.keyboard.D && this.bottlebar.bottleCount > 0) {
@@ -387,8 +387,8 @@ class World {
     }
 
     /**
-     * Fügt mehrere Objekte der Karte hinzu.
-     * @param {Object[]} objects - Array von Objekten, die gezeichnet werden sollen.
+     * Adds multiple objects to the map.
+     * @param {Object[]} objects - Array of objects to be drawn.
      */
     addObjectsToMap(objects) {
         objects.forEach(o => {
@@ -400,8 +400,8 @@ class World {
     }
 
     /**
-     * Zeichnet ein einzelnes Objekt auf der Karte.
-     * @param {Object} mo - Das darzustellende Objekt.
+     * Draws a single object on the map.
+     * @param {Object} mo - The object to be displayed.
      */
     addToMap(mo) {
         this.ctx.save();
@@ -414,8 +414,8 @@ class World {
     }
 
     /**
-     * Spiegelt das Bild eines Objekts horizontal.
-     * @param {Object} mo - Das Objekt, dessen Bild gespiegelt werden soll.
+     * Flips an object's image horizontally.
+     * @param {Object} mo - The object whose image is to be flipped.
      */
     flipImage(mo) {
         this.ctx.translate(mo.x + mo.width, mo.y);
@@ -424,8 +424,8 @@ class World {
     }
 
     /**
-     * Zeichnet das Bild eines Objekts in Normalrichtung.
-     * @param {Object} mo - Das darzustellende Objekt.
+     * Draws an object's image in normal direction.
+     * @param {Object} mo - The object to be displayed.
      */
     flipImageBack(mo) {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);

@@ -1,5 +1,5 @@
 /**
- * Repräsentiert die Münzen-Anzeige im Spiel.
+ * Represents the coin display in the game.
  * @extends DrawableObject
  */
 class CoinBar extends DrawableObject {
@@ -16,7 +16,7 @@ class CoinBar extends DrawableObject {
     coinCount = 0;
 
     /**
-     * Erstellt eine neue CoinBar, lädt die Bilder und initialisiert die Anzeige.
+     * Creates a new CoinBar, loads the images, and initializes the display.
      */
     constructor() {
         super();
@@ -30,7 +30,7 @@ class CoinBar extends DrawableObject {
     }
 
     /**
-     * Erhöht die Anzahl der gesammelten Münzen und aktualisiert die Anzeige.
+     * Increases the number of collected coins and updates the display.
      */
     increaseCoinCount() {
         this.coinCount++;
@@ -38,8 +38,8 @@ class CoinBar extends DrawableObject {
     }
 
     /**
-     * Setzt den aktuellen Prozentsatz der Münzenanzeige.
-     * @param {number} percentage - Der neue Prozentsatz, basierend auf der Münzenanzahl.
+     * Sets the current percentage of the coin display.
+     * @param {number} percentage - The new percentage based on the coin count.
      */
     setPercentage(percentage) {
         this.percentage = percentage;
@@ -48,8 +48,8 @@ class CoinBar extends DrawableObject {
     }
 
     /**
-     * Bestimmt den Index des anzuzeigenden Bildes basierend auf der Münzenanzahl.
-     * @returns {number} Der Index des entsprechenden Bildes.
+     * Determines the index of the image to display based on the coin count.
+     * @returns {number} The index of the corresponding image.
      */
     resolveImageIndex() {
         let index = Math.floor(this.coinCount / 2);

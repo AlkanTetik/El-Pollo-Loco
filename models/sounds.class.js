@@ -1,54 +1,54 @@
 /**
- * Verwalter für die Soundeffekte im Spiel.
+ * Manages sound effects in the game.
  */
 class SoundManager {
-  /**
-   * Erstellt eine neue Instanz des SoundManagers.
-   */
-  constructor() {
-      this.sounds = {};
-      this.activeSounds = [];
-      this.soundEnabled = true; 
-  }
+    /**
+     * Creates a new instance of the SoundManager.
+     */
+    constructor() {
+        this.sounds = {};
+        this.activeSounds = [];
+        this.soundEnabled = true;
+    }
 
-  /**
-   * Lädt einen Sound und speichert ihn unter dem angegebenen Schlüssel.
-   * @param {string} key - Der Schlüssel, unter dem der Sound gespeichert wird.
-   * @param {string} src - Der Pfad zur Audiodatei.
-   */
-  loadSound(key, src) {
-      const audio = new Audio(src);
-      audio.preload = 'auto';
-      this.sounds[key] = audio;
-  }
+    /**
+     * Loads a sound and stores it under the specified key.
+     * @param {string} key - The key under which the sound is stored.
+     * @param {string} src - The path to the audio file.
+     */
+    loadSound(key, src) {
+        const audio = new Audio(src);
+        audio.preload = 'auto';
+        this.sounds[key] = audio;
+    }
 
-  /**
-   * Spielt den Sound ab, der unter dem angegebenen Schlüssel gespeichert ist.
-   * Wenn der Sound deaktiviert ist, wird nichts abgespielt.
-   * @param {string} key - Der Schlüssel des abzuspielenden Sounds.
-   */
-  play(key) {
-      if (!this.soundEnabled) return; 
-      if (this.sounds[key]) {
-          const soundClone = this.sounds[key].cloneNode();
-          this.activeSounds.push(soundClone);
-          soundClone.play();
-          soundClone.addEventListener('ended', () => {
-              this.activeSounds = this.activeSounds.filter(s => s !== soundClone);
-          });
-      }
-  }
+    /**
+     * Plays the sound stored under the specified key.
+     * If the sound is disabled, nothing will play.
+     * @param {string} key - The key of the sound to play.
+     */
+    play(key) {
+        if (!this.soundEnabled) return;
+        if (this.sounds[key]) {
+            const soundClone = this.sounds[key].cloneNode();
+            this.activeSounds.push(soundClone);
+            soundClone.play();
+            soundClone.addEventListener('ended', () => {
+                this.activeSounds = this.activeSounds.filter(s => s !== soundClone);
+            });
+        }
+    }
 
-  /**
-   * Pausiert und stoppt alle aktuell aktiven Sounds.
-   */
-  pauseAll() {
-      this.activeSounds.forEach(sound => {
-          sound.pause();
-          sound.currentTime = 0; 
-      });
-      this.activeSounds = [];
-  }
+    /**
+     * Pauses and stops all currently active sounds.
+     */
+    pauseAll() {
+        this.activeSounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+        this.activeSounds = [];
+    }
 }
 
 const soundManager = new SoundManager();

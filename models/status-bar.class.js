@@ -1,5 +1,5 @@
 /**
- * Repräsentiert die Lebensleiste im Spiel.
+ * Represents the health bar in the game.
  * @extends DrawableObject
  */
 class StatusBar extends DrawableObject {
@@ -16,7 +16,7 @@ class StatusBar extends DrawableObject {
     percentage = 100;
 
     /**
-     * Erstellt eine neue StatusBar, lädt die entsprechenden Bilder und setzt den anfänglichen Prozentsatz.
+     * Creates a new StatusBar, loads the corresponding images, and sets the initial percentage.
      */
     constructor() {
         super();
@@ -29,8 +29,8 @@ class StatusBar extends DrawableObject {
     }
 
     /**
-     * Setzt den aktuellen Prozentsatz der Lebensleiste und aktualisiert das angezeigte Bild.
-     * @param {number} percentage - Der neue Prozentwert der Lebensleiste.
+     * Sets the current percentage of the health bar and updates the displayed image.
+     * @param {number} percentage - The new percentage value of the health bar.
      */
     setPercentage(percentage) {
         this.percentage = percentage;
@@ -39,8 +39,8 @@ class StatusBar extends DrawableObject {
     }
 
     /**
-     * Bestimmt den Index des anzuzeigenden Bildes basierend auf dem aktuellen Prozentsatz.
-     * @returns {number} Der Index des Bildes, das dem aktuellen Prozentwert entspricht.
+     * Determines the index of the image to display based on the current percentage.
+     * @returns {number} The index of the image corresponding to the current percentage.
      */
     resolveImageIndex() {
         if (this.percentage == 100) {

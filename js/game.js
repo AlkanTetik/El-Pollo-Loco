@@ -1,6 +1,6 @@
 /**
- * Hauptdatei für das Spiel. Hier werden globale Variablen und Funktionen zur Initialisierung,
- * Steuerung, Anzeige und Verwaltung des Spiels definiert.
+ * Main file for the game. Here global variables and functions for initializing,
+ * controlling, displaying, and managing the game are defined.
  */
 
 let canvas;
@@ -9,7 +9,7 @@ let keyboard = new Keyboard();
 let gameStarted = false;
 
 /**
- * Initialisiert das Spiel, indem das Canvas-Element geholt und Event-Listener für Tastatur- und Mobile-Eingaben gesetzt werden.
+ * Initializes the game by retrieving the canvas element and setting up event listeners for keyboard and mobile inputs.
  */
 function init() {
   canvas = document.getElementById("canvas");
@@ -19,7 +19,7 @@ function init() {
 }
 
 /**
- * Initialisiert die Event-Listener für mobile Buttons.
+ * Initializes the event listeners for mobile buttons.
  */
 function initMobileButtons() {
   addMobileListeners("leftButton", "left");
@@ -29,10 +29,10 @@ function initMobileButtons() {
 }
 
 /**
- * Fügt einem mobilen Button Event-Listener hinzu, um Aktionen bei Pointer-Down und Pointer-Up auszulösen.
+ * Adds event listeners to a mobile button to trigger actions on pointer down and pointer up.
  *
- * @param {string} elementId - Die ID des DOM-Elements.
- * @param {string} action - Die Aktion, die beim Drücken bzw. Loslassen ausgeführt werden soll.
+ * @param {string} elementId - The ID of the DOM element.
+ * @param {string} action - The action to execute on press and release.
  */
 function addMobileListeners(elementId, action) {
   const element = document.getElementById(elementId);
@@ -48,7 +48,7 @@ function addMobileListeners(elementId, action) {
 }
 
 /**
- * Wechselt das Layout des Spielcontainers.
+ * Toggles the layout of the game container.
  */
 function toggleLayout() {
   const container = document.getElementById('gameContainer');
@@ -56,8 +56,8 @@ function toggleLayout() {
 }
 
 /**
- * Startet das Spiel, sofern es nicht bereits gestartet wurde. Initialisiert den Sound, blendet Hauptmenü-Buttons aus
- * und erstellt eine neue Spielwelt.
+ * Starts the game if it hasn't already started. Initializes the sound, hides the main menu buttons,
+ * and creates a new game world.
  */
 function startGame() {
   if (gameStarted) return;
@@ -73,7 +73,7 @@ function startGame() {
 }
 
 /**
- * Startet das Spiel neu, indem die aktuelle Spielwelt gestoppt, zurückgesetzt und alle UI-Elemente aktualisiert werden.
+ * Restarts the game by stopping and resetting the current game world and updating all UI elements.
  */
 function restartGame() {
   if (world && typeof world.stop === 'function') {
@@ -91,7 +91,7 @@ function restartGame() {
 }
 
 /**
- * Blendet die Hauptmenü-Buttons aus.
+ * Hides the main menu buttons.
  */
 function hideMainButtons() {
   document.getElementById("startButton").style.display = "none";
@@ -100,7 +100,7 @@ function hideMainButtons() {
 }
 
 /**
- * Zeigt mobile Buttons an, falls die Bildschirmbreite 1280 Pixel oder weniger beträgt.
+ * Displays mobile buttons if the screen width is 1280 pixels or less.
  */
 function showMobileButtonsIfNeeded() {
   if (window.innerWidth <= 1280) {
@@ -112,7 +112,7 @@ function showMobileButtonsIfNeeded() {
 }
 
 /**
- * Schaltet den Sound um, indem das Sound-Icon gewechselt und der SoundManager entsprechend angepasst wird.
+ * Toggles the sound by switching the sound icon and adjusting the sound manager accordingly.
  */
 function toggleSound() {
   const soundOn = document.getElementById("soundOnImg");
@@ -131,7 +131,7 @@ function toggleSound() {
 }
 
 /**
- * Aktiviert den Vollbildmodus für den Spielcontainer.
+ * Activates fullscreen mode for the game container.
  */
 function enterFullScreen() {
   let container = document.getElementById('gameContainer');
@@ -144,11 +144,11 @@ function enterFullScreen() {
       fullScreenImg.style.display = '';
       exitScreenImg.style.display = 'block';
     })
-    .catch(err => console.error("Fehler beim Aktivieren des Vollbildmodus:", err));
+    .catch(err => console.error("Error enabling fullscreen mode:", err));
 }
 
 /**
- * Beendet den Vollbildmodus für den Spielcontainer.
+ * Exits fullscreen mode for the game container.
  */
 function exitFullscreen() {
   let container = document.getElementById('gameContainer');
@@ -161,11 +161,11 @@ function exitFullscreen() {
       fullScreenImg.style.display = 'block';
       exitScreenImg.style.display = 'none';
     })
-    .catch(err => console.error("Fehler beim Beenden des Vollbildmodus:", err));
+    .catch(err => console.error("Error exiting fullscreen mode:", err));
 }
 
 /**
- * Wechselt zwischen Vollbild- und Fenstermodus.
+ * Toggles between fullscreen and windowed mode.
  */
 function toggleFullScreen() {
   if (!document.fullscreenElement &&
@@ -192,7 +192,7 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 /**
- * Öffnet das Informationsfenster, indem Hauptmenü-Buttons ausgeblendet und die Steuerungsinformationen angezeigt werden.
+ * Opens the information window by hiding the main menu buttons and displaying the control information.
  */
 function openInfo() {
   document.getElementById("infoButton").style.display = "none";
@@ -206,7 +206,7 @@ function openInfo() {
 }
 
 /**
- * Schließt das Informationsfenster, indem die ursprünglichen Menü-Buttons wieder angezeigt werden.
+ * Closes the information window by restoring the original menu buttons.
  */
 function closeInfo() {
   document.getElementById("infoButton").style.display = "flex";
@@ -219,7 +219,7 @@ function closeInfo() {
 }
 
 /**
- * Öffnet das Impressumfenster, indem Hauptmenü-Buttons ausgeblendet und das Impressum angezeigt wird.
+ * Opens the imprint window by hiding the main menu buttons and displaying the imprint information.
  */
 function openImprint() {
   document.getElementById("infoButton").style.display = "none";
@@ -233,7 +233,7 @@ function openImprint() {
 }
 
 /**
- * Schließt das Impressum, indem die ursprünglichen Menü-Buttons wieder angezeigt werden.
+ * Closes the imprint window by restoring the original menu buttons.
  */
 function closeImprint() {
   document.getElementById("infoButton").style.display = "flex";
@@ -243,13 +243,12 @@ function closeImprint() {
   document.getElementById("closeImprintBtn").style.display = "none";
   document.getElementById("imprintInfo").style.display = "none";
   document.getElementById("imprintInfo").innerHTML = '';
-  
 }
 
 /**
- * Verarbeitet das Drücken einer Taste und aktualisiert den Status des Keyboards.
+ * Processes a keydown event and updates the keyboard status.
  *
- * @param {KeyboardEvent} e - Das KeyboardEvent.
+ * @param {KeyboardEvent} e - The KeyboardEvent.
  */
 function handleKeyDown(e) {
   if (e.keyCode === 32) keyboard.SPACE = true;
@@ -261,9 +260,9 @@ function handleKeyDown(e) {
 }
 
 /**
- * Verarbeitet das Loslassen einer Taste und aktualisiert den Status des Keyboards.
+ * Processes a keyup event and updates the keyboard status.
  *
- * @param {KeyboardEvent} e - Das KeyboardEvent.
+ * @param {KeyboardEvent} e - The KeyboardEvent.
  */
 function handleKeyUp(e) {
   if (e.keyCode === 32) keyboard.SPACE = false;
@@ -275,9 +274,9 @@ function handleKeyUp(e) {
 }
 
 /**
- * Behandelt das Drücken eines mobilen Buttons und löst die entsprechende Aktion im Keyboard aus.
+ * Handles the pressing of a mobile button and triggers the corresponding action on the keyboard.
  *
- * @param {string} action - Die Aktion, die ausgelöst werden soll.
+ * @param {string} action - The action to trigger.
  */
 function handleMobileButtonDown(action) {
   switch (action) {
@@ -290,9 +289,9 @@ function handleMobileButtonDown(action) {
 }
 
 /**
- * Behandelt das Loslassen eines mobilen Buttons und setzt die entsprechende Aktion im Keyboard zurück.
+ * Handles the release of a mobile button and resets the corresponding action on the keyboard.
  *
- * @param {string} action - Die Aktion, die zurückgesetzt werden soll.
+ * @param {string} action - The action to reset.
  */
 function handleMobileButtonUp(action) {
   switch (action) {
@@ -304,16 +303,19 @@ function handleMobileButtonUp(action) {
   }
 }
 
+/**
+ * Checks if the window is in portrait orientation and adjusts the visibility of the element
+ * with the ID "rotate-message" accordingly. Displays the message if the window is in portrait mode,
+ * and hides it otherwise.
+ */
 function checkOrientation() {
-  // Prüft, ob das Gerät im Querformat ist:
-  if(window.matchMedia("(orientation: portrait)").matches) {
+  if (window.matchMedia("(orientation: portrait)").matches) {
     document.getElementById('rotate-message').style.display = 'block';
   } else {
     document.getElementById('rotate-message').style.display = 'none';
   }
 }
 
-// Überprüfe die Ausrichtung beim Laden, bei Größenänderungen und bei einer Orientierung-Änderung
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 checkOrientation();

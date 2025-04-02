@@ -1,11 +1,11 @@
 /**
- * Erstellt das erste Level des Spiels.
+ * Creates the first level of the game.
  *
- * Diese Funktion erstellt und gibt eine neue Instanz der Level-Klasse zurück, die Gegner,
- * Wolken, Münzen, Salsa-Flaschen und Hintergrundobjekte enthält. Dabei werden verschiedene
- * Instanzen wie Chicken, Chick, EndBoss, Clouds, Coin, SalsaBottle und BackgroundObject verwendet.
+ * This function creates and returns a new instance of the Level class, which contains enemies,
+ * clouds, coins, salsa bottles, and background objects. Various instances such as Chicken, Chick,
+ * EndBoss, Clouds, Coin, SalsaBottle, and BackgroundObject are used.
  *
- * @returns {Level} Die erstellte Level-Instanz für Level 1.
+ * @returns {Level} The created Level instance for Level 1.
  */
 function createLevel1() {
   return new Level(

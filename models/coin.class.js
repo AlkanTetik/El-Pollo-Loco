@@ -1,5 +1,5 @@
 /**
- * Repräsentiert eine Münze im Spiel.
+ * Represents a coin in the game.
  * @extends MovableObject
  */
 class Coin extends MovableObject {
@@ -13,7 +13,7 @@ class Coin extends MovableObject {
     ];
 
     /**
-     * Erstellt eine neue Münze an einer zufälligen Position und startet die Animation.
+     * Creates a new coin at a random position and starts the animation.
      */
     constructor() {
         super();
@@ -25,7 +25,7 @@ class Coin extends MovableObject {
     }
 
     /**
-     * Startet die Animationsschleife für die Münze.
+     * Starts the animation loop for the coin.
      */
     animate() {
         setInterval(() => {
