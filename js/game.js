@@ -103,7 +103,7 @@ function hideMainButtons() {
  * Displays mobile buttons if the screen width is 1280 pixels or less.
  */
 function showMobileButtonsIfNeeded() {
-  if (window.innerWidth <= 1280) {
+  if (window.innerWidth <= 1366) {
     document.getElementById("leftButton").style.display = "flex";
     document.getElementById("rightButton").style.display = "flex";
     document.getElementById("jumpButton").style.display = "flex";
@@ -121,14 +121,39 @@ function toggleSound() {
   if (soundOn.style.display !== "none") {
     soundOn.style.display = "none";
     soundOff.style.display = "block";
-    soundManager.soundEnabled = false;
     soundManager.pauseAll();
+    soundManager.soundEnabled = false;
+    localStorage.setItem("soundStatus", "off");
+  } else {
+    soundOn.style.display = "block";
+    soundOff.style.display = "none";
+    soundManager.soundEnabled = true;
+    localStorage.setItem("soundStatus", "on");
+    if (gameStarted) soundManager.play('gamesound');
+  }
+}
+
+/**
+ * Initializes the sound settings based on the stored user preference.
+ *
+ * This function executes when the DOM content is fully loaded. It retrieves the 'soundStatus'
+ * from local storage and updates the UI and sound manager.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const soundStatus = localStorage.getItem("soundStatus");
+  const soundOn = document.getElementById("soundOnImg");
+  const soundOff = document.getElementById("soundOffImg");
+
+  if (soundStatus === "off") {
+    soundOn.style.display = "none";
+    soundOff.style.display = "block";
+    soundManager.soundEnabled = false;
   } else {
     soundOn.style.display = "block";
     soundOff.style.display = "none";
     soundManager.soundEnabled = true;
   }
-}
+});
 
 /**
  * Activates fullscreen mode for the game container.
@@ -177,6 +202,13 @@ function toggleFullScreen() {
   }
 }
 
+/**
+ * Handles changes in the fullscreen state.
+ *
+ * This event listener is triggered when the fullscreen mode changes. It checks if the document is
+ * not in fullscreen mode by verifying the absence of document.fullscreenElement, document.webkitFullscreenElement,
+ * and document.msFullscreenElement.
+ */
 document.addEventListener("fullscreenchange", () => {
   let container = document.getElementById('gameContainer');
   let fullScreenImg = document.getElementById('full-screen');
@@ -272,6 +304,19 @@ function handleKeyUp(e) {
   if (e.keyCode === 40) keyboard.DOWN = false;
   if (e.keyCode === 68) keyboard.D = false;
 }
+
+/**
+ * Prevents the default context menu from appearing on the mobileButtons element.
+ *
+ * This function is executed when a "contextmenu" event (typically a right-click) is triggered on
+ * the element with the id "mobileButtons". It calls preventDefault() on the event object, thereby
+ * disabling the browser's default context menu from being displayed.
+ *
+ * @param {MouseEvent} event - The event object associated with the "contextmenu" event.
+ */
+document.getElementById('mobileButtons').addEventListener("contextmenu", function(event) {
+  event.preventDefault();
+});
 
 /**
  * Handles the pressing of a mobile button and triggers the corresponding action on the keyboard.

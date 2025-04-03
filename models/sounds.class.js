@@ -52,7 +52,7 @@ class SoundManager {
 }
 
 const soundManager = new SoundManager();
-soundManager.loadSound('gamesound', 'audio/gamesound (2).mp3');
+soundManager.loadSound('gamesound', 'audio/gamemusic-6082.mp3');
 soundManager.loadSound('hurt', 'audio/hurt1.mp3');
 soundManager.loadSound('coin', 'audio/coinaudio.wav');
 soundManager.loadSound('bottle', 'audio/bottleaudio2.mp3');

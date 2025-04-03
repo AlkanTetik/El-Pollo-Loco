@@ -30,12 +30,14 @@ class World {
         this.setWorld();
         this.level = createLevel1();
 
+        this.gameStateManager = new GameStateManager(this);
+
         this.level.enemies.forEach(enemy => {
             if (enemy instanceof EndBoss) {
                 enemy.world = this;
             }
         });
-
+        
         this.endboss = new EndBoss(this, this.character);
 
         this.draw();
@@ -89,8 +91,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.throwableObj);
         this.ctx.restore();
     }
@@ -132,8 +134,8 @@ class World {
         }, 20);
 
         this.otherInterval = setInterval(() => {
-            this.checkLose();
-            this.checkWin();
+            this.gameStateManager.checkLose();
+            this.gameStateManager.checkWin();
             this.checkCoinCollection();
             this.checkBottleCollection();
             this.checkThrowAbleObject();
@@ -150,6 +152,7 @@ class World {
     handleChickenCollision(enemy, verticalDiff, chickensToKill) {
         if (this.character.speedY < 0 && verticalDiff < enemy.height * 1) {
             chickensToKill.push(enemy);
+            this.character.y = 130;
         } else if (!enemy.isDead && Date.now() - this.character.lastHit > 1500) {
             this.character.hit(20);
             this.statusbar.setPercentage(this.character.energy);
@@ -164,8 +167,9 @@ class World {
      * @param {Array} chickensToKill - Array to collect chickens to be killed.
      */
     handleChickCollision(enemy, verticalDiff, chickensToKill) {
-        if (this.character.speedY < 0 && verticalDiff < enemy.height * 0.8) {
+        if (this.character.speedY < 0 && verticalDiff < enemy.height * 1) {
             chickensToKill.push(enemy);
+            this.character.y = 130;
         } else if (!enemy.isDead && Date.now() - this.character.lastHit > 1500) {
             this.character.hit(10);
             this.statusbar.setPercentage(this.character.energy);
@@ -203,81 +207,6 @@ class World {
                 }, 500);
             }
         });
-    }
-
-    /**
-     * Checks if the player has lost.
-     */
-    checkLose() {
-        if (this.character.energy == 0 && !this.gameOver) {
-            this.gameOver = true; 
-            this.showLose();
-            if (soundManager.pauseAll()) {
-                soundManager.stop('lose');
-            } else {
-                soundManager.play('lose');
-            }
-            this.stop();
-            this.keyboard = new Keyboard();
-        }
-    }
-
-    /**
-     * Displays the "Lost" overlay.
-     */
-    showLose() {
-        let overlay = document.getElementById('overlayLose');
-        let restartLoseBtn = document.getElementById('restartLoseBtn');
-        let backToMenuBtn = document.getElementById('backLoseMenu');
-
-        overlay.style.display = "flex";
-        restartLoseBtn.style.display = "block";
-        backToMenuBtn.style.display = "block";
-
-        restartLoseBtn.addEventListener('click', () => {
-            restartGame(); 
-        }, { once: true });
-
-        backToMenuBtn.addEventListener('click', () => {
-            window.location.reload();
-        }, { once: true });
-    }
-
-    /**
-     * Checks if the player has won.
-     */
-    checkWin() {
-        if (this.gameOver) return;
-
-        this.level.enemies.forEach(enemy => {
-            if (enemy instanceof EndBoss && enemy.isDead()) {
-                this.gameOver = true; 
-                this.stop();
-                this.showVictory();
-                this.keyboard = new Keyboard();
-            }
-        });
-    }
-
-    /**
-     * Displays the "Victory" overlay.
-     */
-    showVictory() {
-        let overlay = document.getElementById('overlayWin');
-        let restartWinBtn = document.getElementById('restartWinBtn');
-        let backToMenuBtn = document.getElementById('backWinMenu');
-
-        overlay.style.display = "flex";
-        restartWinBtn.style.display = "block";
-        backToMenuBtn.style.display = "block";
-
-        restartWinBtn.addEventListener('click', () => {
-            restartGame(); 
-        }, { once: true });
-
-        backToMenuBtn.addEventListener('click', () => {
-            window.location.reload();
-        }, { once: true });
     }
 
     /**
@@ -353,7 +282,7 @@ class World {
             soundManager.play('bottleHit');
             this.scheduleEnemyRemoval(enemy);
         } else if (enemy instanceof Chick) {
-            soundManager.play('hurt');
+            soundManager.play('bottleHit');
             this.scheduleEnemyRemoval(enemy);
         }
     }

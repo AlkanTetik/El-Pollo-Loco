@@ -112,8 +112,8 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} True if a collision is detected, otherwise false.
      */
     isBottleColliding(bottle) {
-        const offsetX = 30;
-        const offsetY = 0;
+        const offsetX = 40;
+        const offsetY = 2;
 
         const charInner = {
             x: this.x + offsetX,
